@@ -1,6 +1,7 @@
 ﻿using System;
   class Program  
   {
+    //Method to return a user value
     static int InputAndValidateInteger (int minValue, int maxValue, string prompt)
     {
     int value;
@@ -16,6 +17,7 @@
     return value;
     }
 
+    //find the sum of all user numbers
     public static void Main(string[] args)
     {
       int numberOfNumbers = 0, numberValue = 0, sum = 0; 
