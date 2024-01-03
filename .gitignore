@@ -1,0 +1,22 @@
+# Build Folders
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio Files
+*.user
+*.userosscache
+*.suo
+*.cache
+*.csproj.FilesWrittenAbsolute.txt
+
+# ReSharper
+_ReSharper*/
+
+# TeamCity
+_TeamCity*
+
+# NuGet
+packages/
+
+# Others
+*.log
