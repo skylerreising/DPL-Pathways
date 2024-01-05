@@ -248,22 +248,22 @@ class Mathy
     
     //for loop - from beginning exponent to ending exponent
     int answer = baseNum;
-    for(int i=beginningExponent; i<endingExponent; i++)
+    for(int i=beginningExponent; i<=endingExponent; i++)
     {
       //control for if i=1
-      if(i == 1)
-      {
-        Console.WriteLine($"{baseNum} to the power of {1} = {answer}");
-      }
+      // if(i == 1)
+      // {
+      //   Console.WriteLine($"{baseNum} to the power of {i} = {answer}");
+      // }
       // (5)Calculate base to the exponent power and save it to an answer variable.
 
-      for(int j=1; j<=i; j++)
+      for(int j=1; j<i; j++)
       {
         answer *= baseNum;
       }
 
       // (6)Write the answer to the console.
-      Console.WriteLine($"{baseNum} to the power of {i+1} = {answer}");
+      Console.WriteLine($"{baseNum} to the power of {i} = {answer}");
 
       answer = baseNum;
     }
