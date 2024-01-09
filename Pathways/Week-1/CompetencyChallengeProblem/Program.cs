@@ -192,7 +192,7 @@ class Grading
             // while count < 2
             }while(count < 2);
             // (17) Divide exam grade by 2.
-            examGrade = examGrade/2;
+            examGrade /= 2;
             Console.WriteLine($"The exam average grade for {studentName} is {examGrade}%");
 
             //reset the count
