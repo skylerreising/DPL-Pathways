@@ -81,6 +81,31 @@ namespace HelloWorld
             else if (userChoiceString=="S" || userChoiceString=="s")
             {
                 Console.WriteLine("In the S/s area");
+
+                try
+                {
+                    // Delete the file if it exists.
+                    if (File.Exists(fileName))
+                    {
+                        File.Delete(fileName);
+                    }
+                    Console.Write("\n\n Create a file with text and read the file  :\n");
+                    Console.Write("-------------------------------------------------\n");
+
+                    //Create the file
+                    int index = 0;  // index for my array
+                    using (StreamWriter fileStr = File.CreateText(fileName))
+                    {
+                        foreach (string name in nameArray)
+                        {
+                            fileStr.WriteLine(name);
+                        }
+                    }
+                }
+                catch (Exception MyExcep)
+                {
+                    Console.WriteLine(MyExcep.ToString());
+                }
             }
 
         //  TODO: Else if the option is a C or c then add a name to the array (if there's room there)
@@ -116,7 +141,7 @@ namespace HelloWorld
                 }
 
                 //Ask the user which number they would like to create and save that number to a variable.
-                Console.WriteLine("Which space would you like to create your name in? Please enter a number.");
+                Console.WriteLine("Which space would you like to create your name in? Please enter the number of an available index.");
                 userNumber = Convert.ToInt32(Console.ReadLine());
 
                 }while (!updateLine.Contains(userNumber));
@@ -226,6 +251,7 @@ namespace HelloWorld
                     //Ask the user which number they would like to delet and save that number to a variable.
                     Console.WriteLine("Which name would you like to delete? Please enter a number.");
                     userNumber = Convert.ToInt32(Console.ReadLine());
+                    
                 }while (userNumber > arraySize+1 || userNumber < 1);
 
                 //Delete the array item the user selected.
