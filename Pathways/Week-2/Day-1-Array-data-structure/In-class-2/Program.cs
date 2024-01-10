@@ -25,13 +25,13 @@ foreach int[] arr in the array.
 Write to the console the minimum score for the class.
 (1) Declare a min variable = 100.
 (2) Use a nested loop to loop through the multidimensional array.
-(3) If the value is less than min, assign min that value
+    (3) If the value is less than min, assign min that value
 (4) Write to the console the min.
 
 Write to the console the maximum score for the class.
 (1) Declare a max variable = 0.
 (2) Use a nested loop to loop through the multidimensional array.
-(3) If the value is greater than max, assign max that value.
+    (3) If the value is greater than max, assign max that value.
 (4) Write to the console the min.
 
 Write to the console the average score for the class.
@@ -106,7 +106,6 @@ namespace Solution
                     }
                 }
             }
-            
             // (4) Write to the console the min.
             Console.WriteLine($"The highest score in the class is {max}.");
 
