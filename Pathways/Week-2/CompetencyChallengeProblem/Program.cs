@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace HelloWorld
 {
@@ -6,13 +7,18 @@ namespace HelloWorld
   {
     static void Main(string[] args)
     {
-        
         // Declare variables
-        bool userChoice;
-        string userChoiceString;
-        const int arraySize=50;
-        string[] nameArray = new string[arraySize];
-        string fileName = "restaurants.txt";
+            bool userChoice;
+            string userChoiceString;
+            string fileName = "restaurants.txt";
+
+            // Find the number of lines in the file
+            int lineCount = File.ReadLines(fileName).Count();
+            int arraySize = (lineCount/2);
+            Console.WriteLine($"There are {lineCount} lines in {fileName}.");
+
+            // Divide by 2 because each restaurant has two entries (name and ranking)
+            string[,] nameArray = new string[2, lineCount];
 
       // Repeat main loop
       do
@@ -22,7 +28,6 @@ namespace HelloWorld
             do
             {
                 //  Initialize variables
-
                 userChoice = false;
 
                 //  TODO: Provide the user a menu of options
@@ -64,13 +69,24 @@ namespace HelloWorld
                 int index = 0;  // index for my array
                 using (StreamReader sr = File.OpenText(fileName))
                 {
-                    string s = "";
+                    string s;;
+                    int num = 0;
 				    Console.WriteLine($"Here is the content of the file {fileName} : ");
-                    while ((s = sr.ReadLine()) != null)
+                    while (!sr.EndOfStream)
                     {
-                       Console.WriteLine(s);
-                       nameArray[index] = s;
-                        index++;
+                        s = sr.ReadLine();
+                        // Console.WriteLine(s);//s is the restaurant or ranking
+                        if(int.TryParse(s, out num))
+                        {
+                            nameArray[1,index] = s;
+                            Console.WriteLine(nameArray[1,index]);
+                            index++;
+                        }
+                        else
+                        {
+                            nameArray[0,index] = s;
+                            Console.WriteLine(nameArray[0,index]);
+                        }
                     }
                     Console.WriteLine("");
                 }
@@ -96,10 +112,17 @@ namespace HelloWorld
                     int index = 0;  // index for my array
                     using (StreamWriter fileStr = File.CreateText(fileName))
                     {
-                        foreach (string name in nameArray)
+                        for(index = 0; index < (nameArray.GetLength(1)/2); index++)
                         {
-                            fileStr.WriteLine(name);
+                            for(int i=0; i<=1; i++)
+                            {
+                                fileStr.WriteLine(nameArray[i,index]);
+                            }
                         }
+                        // foreach (string name in nameArray)
+                        // {
+                        //     fileStr.WriteLine(name);
+                        // }
                     }
                 }
                 catch (Exception MyExcep)
@@ -114,54 +137,83 @@ namespace HelloWorld
             {
                 Console.WriteLine("In the C/c area");
                 //declare variables
-                int userNumber;
                 string newName;
-                List<int> updateLine = new List<int>();
+                string newRating;
+                int numRating;
+                bool containsEmpty = false;
 
                 do
                 {
-                //Print the array *with numbers* for each array item. 
-                for (int index = 0; index < arraySize; index++)
-                {
-                    if ((nameArray[index])!="")
+                //Print the array with ratings for each restaurant item.
+                    for (int index = 0; index < arraySize; index++)
                     {
-                        Console.WriteLine($"{index+1}: {nameArray[index]}");
+                        if ((nameArray[0,index])!="")
+                        {
+                            Console.WriteLine($"{nameArray[0, index]}: {nameArray[1, index]} stars");
+                        }
+                        else
+                        {
+                            Console.WriteLine("");
+                        }
                     }
-                    else
+
+                //Tell the user if there is room to create a restaurant/rating.
+                    for(int i=0; i<arraySize; i++)
                     {
-                        Console.WriteLine("Index " + (index+1) + " is available.");
-                        updateLine.Add(index+1);
+                        if(nameArray[0,i] == "")
+                        {
+                            Console.WriteLine("There is room to add a restaurant/rating.");
+
+                            //Ask the user what they would like to update that name to and save that name to a variable
+                            Console.WriteLine($"Which restaurant would you like to create?");
+                            newName = Console.ReadLine();
+
+                            //assign that restaurant name to the array item.
+                            nameArray[0,i] = newName;
+
+                            //Ask the user what rating they would like to give that restaurant and save it to a variable
+                            do
+                            {
+                                Console.WriteLine($"What rating would you like to give {newName}? Please give a rating 1-5 stars");
+                                newRating = Console.ReadLine();
+
+                                //Change newRating to an int for evaluation
+                                numRating = Convert.ToInt32(newRating);
+                            }while(numRating<1 || numRating>5);
+
+                            //Assign the new rating to the new restaurant and print it for the user
+                            nameArray[1,i] = newRating;
+                            Console.WriteLine($"You have given {nameArray[0,i]} {nameArray[1,i]} stars!");
+
+                            break;
+                        }
                     }
-                }
 
-                //Tell the user which lines they may create.
-                foreach (int num in updateLine)
-                {
-                    Console.WriteLine($"You may update line {num}");
-                }
+                    // If there is no room, notify they should delete first
+                    int count = 0;
+                    for(int i=0; i<arraySize; i++)
+                    {
+                        if(nameArray[0,i] != "")
+                        {
+                            count++;
+                        }
+                        if(count == arraySize)
+                        {
+                            Console.WriteLine("There is no room for another restaurant rating. Please delete one and try again");
+                        }
+                    }
 
-                //Ask the user which number they would like to create and save that number to a variable.
-                Console.WriteLine("Which space would you like to create your name in? Please enter the number of an available index.");
-                userNumber = Convert.ToInt32(Console.ReadLine());
+                    //use a bool to see if the do... while loop should stop
+                    for(int i=0; i<arraySize; i++)
+                    {
+                        if(nameArray[0,i] == "")
+                        {
+                            containsEmpty = true;
+                            break;
+                        }
+                    }
 
-                }while (!updateLine.Contains(userNumber));
-                
-                //Ask the user what name they want to create and save that name to a variable
-                Console.WriteLine($"What name would you to put on line {userNumber}?");
-                newName = Console.ReadLine();
-
-                //assign that name to the array item.
-                nameArray[userNumber-1] = newName;
-
-                //print the new array.
-                Console.WriteLine("Here are your updated names.");
-                for (int index = 0; index < arraySize; index++)
-                {
-                    if ((nameArray[index])!="")
-                        Console.WriteLine(nameArray[index]);
-                    else
-                        Console.WriteLine("Space " + (index+1) + " is available.");
-                }
+                }while (containsEmpty);
             }
 
         //  TODO: Else if the option is an R or r then print the array
@@ -169,12 +221,12 @@ namespace HelloWorld
             else if (userChoiceString=="R" || userChoiceString=="r")
             {
                 Console.WriteLine("In the R/r area");
-                //Print the array with ratings for each restaurant item. Even indicies are always restaurants.
-                for (int index = 0; index < arraySize; index+=2)
+                //Print the array with ratings for each restaurant item.
+                for (int i=0; i<(nameArray.GetLength(1)/2); i++)
                 {
-                    if ((nameArray[index])!="")
+                    if ((nameArray[0, i])!="")
                     {
-                        Console.WriteLine($"{nameArray[index]}: {nameArray[index+1]} stars");
+                        Console.WriteLine($"{nameArray[0, i]} has a rating of {nameArray[1,i]} stars.");
                     }
                     else
                     {
@@ -193,37 +245,25 @@ namespace HelloWorld
                 string newName;
                 string newRating;
                 int numRating;
+                bool containsUserRestaurant = false;
 
                 do
                 {
-                    //Print the array with ratings for each restaurant item. Even indicies are always restaurants.
-                    for (int index = 0; index < arraySize; index+=2)
-                    {
-                        if ((nameArray[index])!="")
-                        {
-                            Console.WriteLine($"{nameArray[index]}: {nameArray[index+1]} stars");
-                        }
-                        else
-                        {
-                            Console.WriteLine("");
-                        }
-                    }
-
                     //Ask the user which restaurant they would like to update and save that string to a variable.
                     Console.WriteLine("Which restaurant would you like to update?");
                     userRestaurant = (Console.ReadLine());
 
                     //Loop and if the userRestaurant matches a restaurant, continue. Else, prompt user to enter a valid restaurant name.
-                    for(int i=0; i<nameArray.Length; i+=2)
+                    for(int i=0; i<arraySize; i++)
                     {
-                        if(userRestaurant == nameArray[i])
+                        if(userRestaurant == nameArray[0,i])
                         {
                             //Ask the user what they would like to update that name to and save that name to a variable
                             Console.WriteLine($"What restaurant would you like to update {userRestaurant} to?");
                             newName = Console.ReadLine();
 
                             //assign that restaurant name to the array item.
-                            nameArray[i] = newName;
+                            nameArray[0,i] = newName;
 
                             //Ask the user what rating they would like to give that restaurant and save it to a variable
                             do
@@ -236,11 +276,22 @@ namespace HelloWorld
                             }while(numRating<1 || numRating>5);
 
                             //Assign the new rating to the new restaurant and print it for the user
-                            nameArray[i+1] = newRating;
-                            Console.WriteLine($"You have given {nameArray[i]} {nameArray[i+1]} stars!");
+                            nameArray[1,i] = newRating;
+                            Console.WriteLine($"You have given {nameArray[0,i]} {nameArray[1,i]} stars!");
                         }
                     }
-                }while (nameArray.Contains(userRestaurant));
+
+                    //use a bool to see if the do... while loop should stop
+                    for(int i=0; i<arraySize; i++)
+                    {
+                        if(nameArray[0,i] == userRestaurant)
+                        {
+                            containsUserRestaurant = true;
+                            break;
+                        }
+                    }
+
+                }while (containsUserRestaurant);
                 
             }
 
@@ -250,41 +301,51 @@ namespace HelloWorld
             {
                 Console.WriteLine("In the D/d area");
                 //declare variables
-                int userNumber;
-
+                string userRestaurant;
+                bool containsUserRestaurant = false;
                 do
                 {
-                    //Print the array *with numbers* for each array item.
+                    //Print the array with ratings for each restaurant item. Even indicies are always restaurants.
                     for (int index = 0; index < arraySize; index++)
                     {
-                        if ((nameArray[index])!="")
+                        if ((nameArray[0,index])!="")
                         {
-                            Console.WriteLine($"{index+1}: {nameArray[index]}");
+                            Console.WriteLine($"{nameArray[0, index]}: {nameArray[1, index]} stars");
                         }
                         else
                         {
-                            Console.WriteLine("Index " + (index+1) + " is available.");
+                            Console.WriteLine("");
                         }
                     }
 
-                    //Ask the user which number they would like to delet and save that number to a variable.
-                    Console.WriteLine("Which name would you like to delete? Please enter a number.");
-                    userNumber = Convert.ToInt32(Console.ReadLine());
-                    
-                }while (userNumber > arraySize+1 || userNumber < 1);
+                    //Ask the user which restaurant they would like to delete and save that string to a variable.
+                    Console.WriteLine("Which restaurant would you like to delete?");
+                    userRestaurant = (Console.ReadLine());
 
-                //Delete the array item the user selected.
-                nameArray[userNumber-1] = "";
+                    //Loop and if the userRestaurant matches a restaurant, delete it. Else, prompt user to enter a valid restaurant name.
+                    for(int i=0; i<arraySize; i++)
+                    {
+                        if(userRestaurant == nameArray[0,i])
+                        {
+                            //delete the restaurant and the rating
+                            nameArray[0,i] = "";
+                            nameArray[1,i] = "";
 
-                //print the new array.
-                Console.WriteLine("Here are your updated names with your selection deleted.");
-                for (int index = 0; index < arraySize; index++)
-                {
-                    if ((nameArray[index])!="")
-                        Console.WriteLine(nameArray[index]);
-                    else
-                        Console.WriteLine("Space " + (index+1) + " is available.");
-                }
+                            Console.WriteLine($"You have deleted {userRestaurant}.");
+                        }
+                    }
+
+                    //use a bool to see if the do... while loop should stop
+                    for(int i=0; i<arraySize; i++)
+                    {
+                        if(nameArray[0,i] == userRestaurant)
+                        {
+                            containsUserRestaurant = true;
+                            break;
+                        }
+                    }
+
+                }while (containsUserRestaurant);
             }
         //  TODO: Else if the option is a Q or q then quit the program
 
