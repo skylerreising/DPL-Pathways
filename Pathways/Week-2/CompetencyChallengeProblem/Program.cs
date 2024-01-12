@@ -19,6 +19,11 @@ namespace HelloWorld
 
             // Divide by 2 because each restaurant has two entries (name and ranking)
             string[,] nameArray = new string[2, lineCount];
+            for(int i=0; i<arraySize; i++)
+            {
+                nameArray[0,i] = " ";
+                nameArray[1,i] = " ";
+            }
 
       // Repeat main loop
       do
@@ -199,7 +204,7 @@ namespace HelloWorld
                         }
                         if(count == arraySize)
                         {
-                            Console.WriteLine("There is no room for another restaurant rating. Please delete one and try again");
+                            Console.WriteLine("The file is full and there is no room for another restaurant rating. Please delete one and try again");
                         }
                     }
 
@@ -222,15 +227,13 @@ namespace HelloWorld
             {
                 Console.WriteLine("In the R/r area");
                 //Print the array with ratings for each restaurant item.
+
+
                 for (int i=0; i<(nameArray.GetLength(1)/2); i++)
                 {
-                    if ((nameArray[0, i])!="")
+                    if ((nameArray[0, i])!=" ")
                     {
                         Console.WriteLine($"{nameArray[0, i]} has a rating of {nameArray[1,i]} stars.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("");
                     }
                 }
 
@@ -245,15 +248,17 @@ namespace HelloWorld
                 string newName;
                 string newRating;
                 int numRating;
-                bool containsUserRestaurant = false;
-
-                do
-                {
+                // bool containsUserRestaurant = false;
+                bool found = false;
+                // do
+                // {
                     //Ask the user which restaurant they would like to update and save that string to a variable.
                     Console.WriteLine("Which restaurant would you like to update?");
                     userRestaurant = (Console.ReadLine());
 
                     //Loop and if the userRestaurant matches a restaurant, continue. Else, prompt user to enter a valid restaurant name.
+
+
                     for(int i=0; i<arraySize; i++)
                     {
                         if(userRestaurant == nameArray[0,i])
@@ -278,20 +283,30 @@ namespace HelloWorld
                             //Assign the new rating to the new restaurant and print it for the user
                             nameArray[1,i] = newRating;
                             Console.WriteLine($"You have given {nameArray[0,i]} {nameArray[1,i]} stars!");
+                            found = true;
                         }
+
+                        if(found)
+                            break;
+                    }
+
+                    //Give message if not found, tell user couldn't find restaurant
+                    if(!found)
+                    {
+                        Console.WriteLine("Restaurant not found");
                     }
 
                     //use a bool to see if the do... while loop should stop
-                    for(int i=0; i<arraySize; i++)
-                    {
-                        if(nameArray[0,i] == userRestaurant)
-                        {
-                            containsUserRestaurant = true;
-                            break;
-                        }
-                    }
+                    // for(int i=0; i<arraySize; i++)
+                    // {
+                    //     if(nameArray[0,i] == userRestaurant)
+                    //     {
+                    //         containsUserRestaurant = true;
+                    //         break;
+                    //     }
+                    // }
 
-                }while (containsUserRestaurant);
+                // }while (!containsUserRestaurant);
                 
             }
 
@@ -328,8 +343,8 @@ namespace HelloWorld
                         if(userRestaurant == nameArray[0,i])
                         {
                             //delete the restaurant and the rating
-                            nameArray[0,i] = "";
-                            nameArray[1,i] = "";
+                            nameArray[0,i] = " ";
+                            nameArray[1,i] = " ";
 
                             Console.WriteLine($"You have deleted {userRestaurant}.");
                         }
