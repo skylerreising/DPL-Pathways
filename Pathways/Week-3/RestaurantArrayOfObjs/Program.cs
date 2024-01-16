@@ -47,7 +47,7 @@ namespace restaurantAPP
                 Console.WriteLine(restaurantArray[i]);
         }
 
-        //load restaurants.txt into the restaurantArray LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+        //Load restaurants.txt into the restaurantArray LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
         Console.WriteLine("In the L/l area");
         
         //Declare variables
@@ -78,6 +78,61 @@ namespace restaurantAPP
             }
             Console.WriteLine("");
         }
+
+        //Delete a restaurant from the array DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+        Console.WriteLine("In the D/d area");
+        Console.WriteLine(" ");
+
+        //declare variables
+        string userRestaurant;
+        bool containsUserRestaurant = false;
+
+        do
+        {
+            //Ask the user which restaurant they would like to delete and save that string to a variable.
+            Console.WriteLine(" ");
+            Console.WriteLine("Which restaurant would you like to delete?");
+            Console.WriteLine(" ");
+            userRestaurant = Console.ReadLine();
+
+            //Loop and if the userRestaurant matches a restaurant, delete it. Else, prompt user to enter a valid restaurant name.
+            for(int i=0; i<restaurantArray.Length; i++)
+            {
+                if(userRestaurant == restaurantArray[i].RName)
+                {
+                    containsUserRestaurant = true;
+                    //delete the restaurant and the rating
+                    restaurantArray[i].RName = " ";
+                    restaurantArray[i].RRating = 0;
+
+                    Console.WriteLine($"You have deleted {userRestaurant}.");
+                    Console.WriteLine(" ");
+                    break;
+                }
+            }
+
+            //Print the array with ratings for each restaurant item. Even indicies are always restaurants.
+            if(containsUserRestaurant)
+            {
+                for (int i = 0; i < restaurantArray.Length; i++)
+                {
+                    if ((restaurantArray[i].RName)!=" ")
+                    {
+                        Console.WriteLine($"{restaurantArray[i].RName}: {restaurantArray[i].RRating} stars");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{userRestaurant} has been... DELETED!!!!!!!!!!!!!!!!!!!!!");
+                    }
+                }
+                break;
+            }
+
+            Console.WriteLine(" ");
+            Console.WriteLine("We couldn't find that restaurant. Please try again.");
+            Console.WriteLine(" ");
+        }while(!containsUserRestaurant);
+        
 
     } // Main
   } // class
