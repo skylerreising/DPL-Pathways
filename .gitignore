@@ -20,3 +20,4 @@ packages/
 
 # Others
 *.log
+.DS_Store
