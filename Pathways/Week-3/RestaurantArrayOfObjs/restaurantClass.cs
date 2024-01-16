@@ -17,7 +17,7 @@ namespace restaurantAPP
         // This is the automatic property variable.  The get and set methods are being created too.
         public string RName //property
             { get; set;}
-        public int RRating  // property
+        public string RRating  // property
             { get; set; }
         
 
@@ -25,11 +25,11 @@ namespace restaurantAPP
         public Restaurant ()
         {
             RName = null;
-            RRating = -1;
+            RRating = null;
         }
 
         // This is the constructor when two values are passed.
-        public Restaurant (string newRestaurant, int newRating)
+        public Restaurant (string newRestaurant, string newRating)
         {
             RName = newRestaurant;
             RRating = newRating;

@@ -8,16 +8,12 @@ Rodizio Grill
 2
 Venue Restaurant & Lounge
 4
-The Dish
-2
 Blue Sushi Sake Grill
 5
 Piedmont Bistro by Venue
 3
 The Green Gateau
 2
-Billy's
-4
 Fireworks Restaurant
 1
 Raisin' Canes
@@ -32,8 +28,6 @@ A Taste Of Louisiana
 5
 Muchachos
 5
-The Copper Kettle
-2
 LeadBelly (Haymarket)
 4
 Misty's Restaurant & Lounge
@@ -45,6 +39,12 @@ Daffodil Mediterranean Cuisine and Catering
 Dickey's BBQ
 1
 Burger King
-5
+4
 Vincenzo's
 5
+ 
+ 
+
+
+
+

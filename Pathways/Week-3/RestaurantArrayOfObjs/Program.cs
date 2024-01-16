@@ -13,7 +13,7 @@ namespace restaurantAPP
         Console.WriteLine(aRestaurant);
 
         // Declare and instantiate a single Restaurant object using the other constructor
-        Restaurant bRestaurant = new Restaurant("Asian Fusion", 3);
+        Restaurant bRestaurant = new Restaurant("Asian Fusion", "3");
 
         // Output to show the default constructor values
         Console.WriteLine(bRestaurant);
@@ -32,11 +32,11 @@ namespace restaurantAPP
         // Load in some test data to test both ways to assign values
 
         restaurantArray[1].RName = "McDonalds";
-        restaurantArray[1].RRating = 2;
+        restaurantArray[1].RRating = "2";
         restaurantArray[10].RName = "Lazlos";
-        restaurantArray[10].RRating = 4;
+        restaurantArray[10].RRating = "4";
         restaurantArray[20].RName = "Venue";
-        restaurantArray[20].RRating = 5;
+        restaurantArray[20].RRating = "5";
 
 
         // print each restaurant to test the property gets and the toString
@@ -67,7 +67,7 @@ namespace restaurantAPP
                 // Console.WriteLine(s);//s is the restaurant or ranking
                 if(int.TryParse(s, out num))//if the line is a number
                 {
-                    restaurantArray[index].RRating = num;
+                    restaurantArray[index].RRating = s;
                     Console.WriteLine(restaurantArray[index]);
                     index++;
                 }
@@ -103,8 +103,9 @@ namespace restaurantAPP
                     containsUserRestaurant = true;
                     //delete the restaurant and the rating
                     restaurantArray[i].RName = " ";
-                    restaurantArray[i].RRating = 0;
+                    restaurantArray[i].RRating = " ";
 
+                    Console.WriteLine(" ");
                     Console.WriteLine($"You have deleted {userRestaurant}.");
                     Console.WriteLine(" ");
                     break;
@@ -132,7 +133,77 @@ namespace restaurantAPP
             Console.WriteLine("We couldn't find that restaurant. Please try again.");
             Console.WriteLine(" ");
         }while(!containsUserRestaurant);
-        
+
+        //Code to save the new array to the text file SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+        Console.WriteLine("In the S/s area");
+
+        try
+        {
+            // Delete the file if it exists.
+            if (File.Exists(fileName))
+            {
+                File.Delete(fileName);
+            }
+            Console.Write("\n\n Create a file with text and read the file  :\n");
+            Console.Write("-------------------------------------------------\n");
+
+            //Create the file
+            index = 0;  // index for my array
+            using (StreamWriter fileStr = File.CreateText(fileName))
+            {
+                for(index = 0; index < restaurantArray.Length; index++)
+                {
+                    if(restaurantArray[index].RName != " ")
+                    {
+                        fileStr.WriteLine(restaurantArray[index].RName);
+                        fileStr.WriteLine(restaurantArray[index].RRating);
+                    }
+                    else
+                    {
+                        fileStr.WriteLine(" ");
+                        fileStr.WriteLine(" ");
+                    }
+                }
+            }
+            Console.WriteLine(" ");
+            Console.WriteLine("Your new file was saved.");
+            Console.WriteLine(" ");
+
+            //Load and print the file
+
+            using (StreamReader sr = File.OpenText(fileName))
+            {
+                string s;
+                int num = 0;
+                index = 0;
+                Console.WriteLine(" ");
+                Console.WriteLine($"Here is the content of the file {fileName}: ");
+                Console.WriteLine(" ");
+                while (!sr.EndOfStream)
+                {
+                    s = sr.ReadLine();
+                    // Console.WriteLine(s);//s is the restaurant or ranking
+                    if(int.TryParse(s, out num))//if the line is a number
+                    {
+                        restaurantArray[index].RRating = s;
+                        Console.WriteLine(restaurantArray[index]);
+                        index++;
+                    }
+                    else
+                    {
+                        restaurantArray[index].RName = s;
+                    }
+                }
+                Console.WriteLine("");
+            }
+
+        }
+        catch (Exception MyExcep)
+        {
+            Console.WriteLine(MyExcep.ToString());
+        }
+
+        //Create a restaurant in the array
 
     } // Main
   } // class
