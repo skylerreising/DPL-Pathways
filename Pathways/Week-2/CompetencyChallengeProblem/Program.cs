@@ -95,7 +95,7 @@ namespace HelloWorld
                 int index = 0;  // index for my array
                 using (StreamReader sr = File.OpenText(fileName))
                 {
-                    string s;;
+                    string s;
                     int num = 0;
                     Console.WriteLine(" ");
 				    Console.WriteLine($"Here is the content of the file {fileName}: ");
@@ -104,7 +104,7 @@ namespace HelloWorld
                     {
                         s = sr.ReadLine();
                         // Console.WriteLine(s);//s is the restaurant or ranking
-                        if(int.TryParse(s, out num))
+                        if(int.TryParse(s, out num))//if the line is a number
                         {
                             nameArray[1,index] = s;
                             Console.WriteLine(nameArray[1,index]);
@@ -145,7 +145,15 @@ namespace HelloWorld
                         {
                             for(int i=0; i<=1; i++)
                             {
-                                fileStr.WriteLine(nameArray[i,index]);
+                                if(nameArray[i,index] != " ")
+                                {
+                                    fileStr.WriteLine(nameArray[i,index]);
+                                }
+                                else
+                                {
+                                    fileStr.WriteLine("No restaurant or rating given.");
+                                }
+                                
                             }
                         }
                     }
