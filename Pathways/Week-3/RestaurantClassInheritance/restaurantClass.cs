@@ -13,8 +13,8 @@ namespace restaurantAPP
         // This is the default constructor when no values are being passed.
         public Restaurant ()
         {
-            RName = null;
-            RRating = null;
+            RName = null!;
+            RRating = null!;
         }
 
         // This is the constructor when two values are passed.
@@ -28,7 +28,12 @@ namespace restaurantAPP
 
         public override string ToString()
         {
-            return "Restaurant: " + RName + ":  Rating: " + RRating + " stars.";
+            return "Restaurant: " + RName + "\nRating: " + RRating + " stars." + "\nNumber of Menu Items: " + MenuItems();
+        }
+
+        public virtual int MenuItems()
+        {
+            return 10;
         }
 
     }// class Restaurant

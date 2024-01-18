@@ -119,6 +119,24 @@ namespace HelloWorld
                     Console.WriteLine("");
                     isLoaded = true;
                 }
+
+
+                //Tarr's example of how to read the lines of the file
+                
+                //var lines = File.ReadAllLines(fileName);
+
+                // for (var i = 0; i < lines.Length; i++)
+                // {
+                //     nameArray[index % 2 == 0 ? 0 : 1,index] = lines[i];
+                // }
+
+                // var names = lines
+                //     .Where(line => !int.TryParse(line, out var _))
+                //     .ToList();
+
+                // names.Add("Bobs Burgers");
+                // names.AddRange(new[] { "A", "B", "C"});
+
             }
 
         //Else if the option is an S or s then store the array of strings into the text file
