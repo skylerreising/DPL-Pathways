@@ -26,12 +26,16 @@ Be sure to follow best programming practices (no code smell!)
 
 Steps:
 (1) Create classes (DONE)
-(2) Test classes
+(2) Test classes (DONE)
 (3) Create LSQ & CRUD
 
 */
 
 using System;
+using System.Linq;
+using System.IO;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace payroll
 {
@@ -39,6 +43,47 @@ namespace payroll
     {
         static void Main(string[] args)
         {
+            //Read Employees.json
+            string json = File.ReadAllText("Employees.json");
+            //Console.WriteLine(json);
+
+            //Deserialize JSON to Array of Objects
+            dynamic employeeJSON = JsonConvert.DeserializeObject<List<dynamic>>(json);
+            // foreach(var employee in employeeJSON)//Had to use var instead of Employee type to see each employee in the list
+            // {
+            //     Console.WriteLine(employee);
+            // }
+
+            Employee[] employees = new Employee[9];
+            
+            for(int i=0; i<employees.Length; i++)
+            {
+                //had to declare types of these variables due to the use of dynamic list
+                string lastName = employeeJSON[i].LastName;
+                string firstName = employeeJSON[i].FirstName;
+                string workerType = employeeJSON[i].WorkerType;
+
+                if(employeeJSON[i].WorkerType == "Hourly")
+                {
+                    double hourlyRate = Convert.ToDouble(employeeJSON[i].HourlyRate);//had to declare types of these variables due to the use of dynamic list
+                    employees[i] = new Hourly(lastName,firstName,workerType,hourlyRate);
+                }
+                else if(employeeJSON[i].WorkerType == "Salary")
+                {
+                    double annualSalary = Convert.ToDouble(employeeJSON[i].AnnualSalary);//had to declare types of these variables due to the use of dynamic list
+                    employees[i] = new Salary(lastName,firstName,workerType,annualSalary);
+                }else
+                {
+                    employees[i] = new Employee(lastName,firstName,workerType);
+                }
+                
+                //Console.WriteLine(employees[i]);
+            }
+            
+
+            
+
+
         // // Declare and instantiate a single parent object using the default constructor
         // Employee testGuy = new();
 
@@ -113,38 +158,38 @@ namespace payroll
 
 
 
-        // Declare and instantiate a single child object using the default constructor
-        Salary testPerson = new();
+        // // Declare and instantiate a single child object using the default constructor
+        // Salary testPerson = new();
 
-        // Output to show the default constructor values
-        Console.WriteLine(testPerson);
+        // // Output to show the default constructor values
+        // Console.WriteLine(testPerson);
 
-        // Declare and instantiate a single child object using the other constructor
-        Salary testPerson2 = new Salary("Person2", "Test", "Salary", 150000);
+        // // Declare and instantiate a single child object using the other constructor
+        // Salary testPerson2 = new Salary("Person2", "Test", "Salary", 150000);
 
-        // Output to show the default constructor values
-        Console.WriteLine(testPerson2);
+        // // Output to show the default constructor values
+        // Console.WriteLine(testPerson2);
 
-        // Declare and instantiate the array of child objects
-        Salary[] testPeople = new Salary[3];
+        // // Declare and instantiate the array of child objects
+        // Salary[] testPeople = new Salary[3];
 
-        // Now, loop through each array element and instantiate a child object for each.
-        // Note that the constructor with no parameters will be used.
-        for(int i=0; i<testPeople.Length; i++)
-        {
-            testPeople[i] = new Salary("Person3", "Testo", "Salary", 40000);
-            Console.WriteLine(testPeople[i]);
-        }
+        // // Now, loop through each array element and instantiate a child object for each.
+        // // Note that the constructor with no parameters will be used.
+        // for(int i=0; i<testPeople.Length; i++)
+        // {
+        //     testPeople[i] = new Salary("Person3", "Testo", "Salary", 40000);
+        //     Console.WriteLine(testPeople[i]);
+        // }
 
-        // Load in some test data to test both ways to assign values
-        testPeople[0].AnnualSalary = 200000;
-        Console.WriteLine(testPeople[0]);
+        // // Load in some test data to test both ways to assign values
+        // testPeople[0].AnnualSalary = 200000;
+        // Console.WriteLine(testPeople[0]);
 
-        // print each child object to test the property gets the toString
-        for(int i=0; i<testPeople.Length; i++)
-        {
-            Console.WriteLine(testPeople[i]);
-        }
+        // // print each child object to test the property gets the toString
+        // for(int i=0; i<testPeople.Length; i++)
+        // {
+        //     Console.WriteLine(testPeople[i]);
+        // }
         
         }
     }

@@ -1,0 +1,53 @@
+[
+    {
+        "LastName": "Smith",
+        "FirstName": "John",
+        "WorkerType": "Other"
+    },
+    {
+        "LastName": "Doe",
+        "FirstName": "Jane",
+        "WorkerType": "Other"
+    },
+    {
+        "LastName": "Brown",
+        "FirstName": "Charlie",
+        "WorkerType": "Other"
+    },
+    {
+        "LastName": "Johnson",
+        "FirstName": "Alex",
+        "WorkerType": "Hourly",
+        "HourlyRate": 25.00
+    },
+    {
+        "LastName": "Williams",
+        "FirstName": "Samantha",
+        "WorkerType": "Hourly",
+        "HourlyRate": 30.00
+    },
+    {
+        "LastName": "Miller",
+        "FirstName": "David",
+        "WorkerType": "Hourly",
+        "HourlyRate": 22.00
+    },
+    {
+        "LastName": "Davis",
+        "FirstName": "Emily",
+        "WorkerType": "Salary",
+        "AnnualSalary": 120000.00
+    },
+    {
+        "LastName": "Garcia",
+        "FirstName": "Michael",
+        "WorkerType": "Salary",
+        "AnnualSalary": 95000.00
+    },
+    {
+        "LastName": "Rodriguez",
+        "FirstName": "Sarah",
+        "WorkerType": "Salary",
+        "AnnualSalary": 105000.00
+    }
+]
