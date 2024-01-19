@@ -60,6 +60,7 @@ Steps:
             //if Other, delete HourlyRate or SalaryRate
 (8) Create delete
     //Control for if array isn't loaded
+    //Make sure to add default constructor/object after deletion
 (9) Create create
     //Control for if array isn't loaded
 (10) Create save
@@ -94,6 +95,11 @@ namespace payroll
 
             //instantiate array
             Employee[] employees = new Employee[9];
+
+            for(int i=0; i<employees.Length; i++)
+            {
+                employees[i] = new Employee();
+            }
 
             do
             {
@@ -183,7 +189,7 @@ namespace payroll
                     // }
                     
                     //loop to assign objects to the array
-                    for(int i=0; i<employees.Length; i++)
+                    for(int i=0; i<employeeJSON.Count; i++)
                     {
                         //had to declare types of these variables due to the use of dynamic list
                         string lastName = employeeJSON[i].LastName;
@@ -206,10 +212,10 @@ namespace payroll
                     }
                 
                     //Print the names of the employees that were loaded.
-                    foreach (Employee employee in employees)
-                    {
-                        Console.WriteLine($"{employee.FirstName} {employee.LastName} was loaded");
-                    }
+                    Console.WriteLine(" ");
+                    Console.WriteLine("Your employees were loaded.");
+                    Console.WriteLine(" ");
+
                     load = false;
                     dataLoaded = true;
                 }
@@ -220,7 +226,8 @@ namespace payroll
                     {
                         foreach (Employee employee in employees)//print each employee to the console
                         {
-                            Console.WriteLine(employee);
+                            if(!(employee.LastName == null))
+                                Console.WriteLine(employee);
                         }
                     }
 
@@ -233,7 +240,7 @@ namespace payroll
                     {
                         foreach (Employee employee in employees)//print each employee to the console
                         {
-                            Console.WriteLine(employee);
+                            Console.WriteLine($"{employee.FirstName} {employee.LastName}");
                         }
                         //Ask the user which employee they would like to update and save that to a variable
                         Console.WriteLine(" ");
@@ -354,12 +361,13 @@ namespace payroll
                                                 hourlySalaryOrOther.ToLower() != "other");
                                     }
                                     //The user didn't choose an available option. Prompt to try again
-                                    Console.WriteLine(" ");
-                                    Console.WriteLine("Choose an available option. Please check your spelling and try again.");
-                                    Console.WriteLine(" ");
+                                    // Console.WriteLine(" ");
+                                    // Console.WriteLine("Choose an available option. Please check your spelling and try again.");
+                                    // Console.WriteLine(" ");
                                 }while(updateChoice.ToLower() != "first name" &&
                                         updateChoice.ToLower() != "last name" &&
                                         updateChoice.ToLower() != "worker type");
+                                break;
                             }
                         }
                         //The user spelled the name incorrectly. Ask them to choose update and try again

@@ -11,15 +11,11 @@ namespace payroll
         public Hourly() : base()
         {
             HourlyRate = 20.00;
-            WorkerType = "Hourly";
         }
 
         //constructor when all Employee values are passed
         public Hourly(string lastName, string firstName, string workerType, double hourlyRate) : base(lastName,firstName,workerType)
         {
-            LastName = lastName;
-            FirstName = firstName;
-            WorkerType = workerType;
             HourlyRate = hourlyRate;
         }
 
@@ -36,7 +32,7 @@ namespace payroll
             string bonus = CalculateBonus().ToString();
 
             Console.WriteLine(" ");
-            return $"Employee Category: {WorkerType}\nHourly Rate: {HourlyRate}/Hour\n{FirstName} {LastName} will receive a bonus of ${bonus}\n";
+            return base.ToString() + $"\nHourly Rate: {HourlyRate}/Hour";
         }
     }
 }

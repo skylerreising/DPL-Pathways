@@ -12,9 +12,9 @@ namespace payroll
         //default constructor
         public Employee()
         {
-            LastName = "LAST NAME MISSING";
-            FirstName = "FIRST NAME MISSING";
-            WorkerType = "EMPLOYEE TYPE NOT SPECIFIED";
+            LastName = null;
+            FirstName = null;
+            WorkerType = null;
         }
 
         //constructor when all Employee values are passed
@@ -37,7 +37,7 @@ namespace payroll
             string bonus = CalculateBonus().ToString();
 
             Console.WriteLine(" ");
-            return $"Employee Category: {WorkerType}\n{FirstName} {LastName} will receive a bonus of ${bonus}\n";
+            return $"Employee Category: {WorkerType}\n{FirstName} {LastName} will receive a bonus of ${bonus}";
         }
     }
 }

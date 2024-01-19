@@ -43,11 +43,5 @@
         "FirstName": "Michael",
         "WorkerType": "Salary",
         "AnnualSalary": 95000.00
-    },
-    {
-        "LastName": "Rodriguez",
-        "FirstName": "Sarah",
-        "WorkerType": "Salary",
-        "AnnualSalary": 105000.00
     }
 ]

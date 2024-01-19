@@ -11,15 +11,11 @@ namespace payroll
         public Salary() : base()
         {
             AnnualSalary = 100000.00;
-            WorkerType = "Salary";
         }
 
         //constructor when all Employee values are passed
         public Salary(string lastName, string firstName, string workerType, double annualSalary) : base(lastName,firstName,workerType)
         {
-            LastName = lastName;
-            FirstName = firstName;
-            WorkerType = workerType;
             AnnualSalary = annualSalary;
         }
 
@@ -36,7 +32,7 @@ namespace payroll
             string bonus = CalculateBonus().ToString();
 
             Console.WriteLine(" ");
-            return $"Employee Category: {WorkerType}\nSalary: ${AnnualSalary}/Year\n{FirstName} {LastName} will receive a bonus of ${bonus}\n";
+            return base.ToString() + $"\nSalary: ${AnnualSalary}/Year";
         }
     }
 }
