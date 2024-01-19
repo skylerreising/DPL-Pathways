@@ -28,6 +28,41 @@ Steps:
 (1) Create classes (DONE)
 (2) Test classes (DONE)
 (3) Create LSQ & CRUD
+(4) Create menu
+    //do
+    //Display menu for the user
+        //Save user's choice in a variable
+        //if and else if statements for the user's choice
+    //While the user hasn't chosen quit
+(5) Create load
+    //Read Employees.json
+    //Deserialize JSON to dynamic list then to an array of objects
+    //instantiate Employee array
+    //loop to assign objects to the array
+    //Print names of the employees that were loaded
+(6) Create read
+    //Control for if array isn't loaded
+    //loop through employees array and display them in the console
+(7) Create update
+    //Control for if array isn't loaded (HEY, THIS COULD BE A METHOD!)
+    //Print names of the employees that were loaded
+    //Ask the user which employee they would like to update and save that to a variable
+        //Ask user for first name and last name
+        //Parse first and last name
+        //Use first and last name to find the employee
+        //if not found, ask for the employee name again
+    //Ask what they would like to update for that employee?
+        //First Name?
+        //Last Name? 
+        //Hourly, Salary, or Other?
+            //if Hourly, what per hour?
+            //if Salary, what salary
+            //if Other, delete HourlyRate or SalaryRate
+(8) Create delete
+    //Control for if array isn't loaded
+(9) Create create
+    //Control for if array isn't loaded
+(10) Create save
 
 */
 
@@ -36,6 +71,7 @@ using System.Linq;
 using System.IO;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Net.Quic;
 
 namespace payroll
 {
@@ -43,43 +79,301 @@ namespace payroll
     {
         static void Main(string[] args)
         {
-            //Read Employees.json
-            string json = File.ReadAllText("Employees.json");
-            //Console.WriteLine(json);
+            //variables
+            string userChoice;
+            bool load = false;
+            bool create = false;
+            bool read = false;
+            bool update = false;
+            bool delete = false;
+            bool save = false;
+            bool quit = false;
+            bool dataLoaded = false;
+            string fileName = "Employees.json";
+            string updateEmployee;
 
-            //Deserialize JSON to Array of Objects
-            dynamic employeeJSON = JsonConvert.DeserializeObject<List<dynamic>>(json);
-            // foreach(var employee in employeeJSON)//Had to use var instead of Employee type to see each employee in the list
-            // {
-            //     Console.WriteLine(employee);
-            // }
-
+            //instantiate array
             Employee[] employees = new Employee[9];
-            
-            for(int i=0; i<employees.Length; i++)
-            {
-                //had to declare types of these variables due to the use of dynamic list
-                string lastName = employeeJSON[i].LastName;
-                string firstName = employeeJSON[i].FirstName;
-                string workerType = employeeJSON[i].WorkerType;
 
-                if(employeeJSON[i].WorkerType == "Hourly")
+            do
+            {
+                //Display menu for the user
+                Console.WriteLine(" ");
+                Console.WriteLine("Please choose an option from the menu below:");
+                Console.WriteLine("To load your employees, please type L or Load and hit enter.");
+                Console.WriteLine("To create an employee, please type C or Create and hit enter.");
+                Console.WriteLine("To see a list of your employees, please type R or Read and hit enter.");
+                Console.WriteLine("To update an employee's record, please type U or Update and hit enter.");
+                Console.WriteLine("To delete an employee, please type D or Delete and hit enter.");
+                Console.WriteLine("To save your changes, please type S or Save and hit enter.");
+                Console.WriteLine("To quit this application, please type Q or Quit and hit enter.");
+                Console.WriteLine(" ");
+
+                //Save user's choice in a variable
+                userChoice = Console.ReadLine();
+
+                //changing the flag
+                if(userChoice.ToLower() == "l" || userChoice.ToLower() == "load")
                 {
-                    double hourlyRate = Convert.ToDouble(employeeJSON[i].HourlyRate);//had to declare types of these variables due to the use of dynamic list
-                    employees[i] = new Hourly(lastName,firstName,workerType,hourlyRate);
+                    Console.WriteLine(" ");
+                    Console.WriteLine("The user choose LOAD");
+                    Console.WriteLine(" ");
+                    load = true;
+                }else if(userChoice.ToLower() == "c" || userChoice.ToLower() == "create")
+                {
+                    Console.WriteLine(" ");
+                    Console.WriteLine("The user choose CREATE");
+                    Console.WriteLine(" ");
+                    create = true;
                 }
-                else if(employeeJSON[i].WorkerType == "Salary")
+                else if(userChoice.ToLower() == "r" || userChoice.ToLower() == "read")
                 {
-                    double annualSalary = Convert.ToDouble(employeeJSON[i].AnnualSalary);//had to declare types of these variables due to the use of dynamic list
-                    employees[i] = new Salary(lastName,firstName,workerType,annualSalary);
-                }else
-                {
-                    employees[i] = new Employee(lastName,firstName,workerType);
+                    Console.WriteLine(" ");
+                    Console.WriteLine("The user choose READ");
+                    Console.WriteLine(" ");
+                    read = true;
                 }
+                else if(userChoice.ToLower() == "u" || userChoice.ToLower() == "update")
+                {
+                    Console.WriteLine(" ");
+                    Console.WriteLine("The user choose UPDATE");
+                    Console.WriteLine(" ");
+                    update = true;
+                }
+                else if(userChoice.ToLower() == "d" || userChoice.ToLower() == "delete")
+                {
+                    Console.WriteLine(" ");
+                    Console.WriteLine("The user choose DELETE");
+                    Console.WriteLine(" ");
+                    delete = true;
+                }
+                else if(userChoice.ToLower() == "s" || userChoice.ToLower() == "save")
+                {
+                    Console.WriteLine(" ");
+                    Console.WriteLine("The user choose SAVE");
+                    Console.WriteLine(" ");
+                    save = true;
+                }
+                else if(userChoice.ToLower() == "q" || userChoice.ToLower() == "quit")
+                {
+                    Console.WriteLine(" ");
+                    Console.WriteLine("The user choose QUIT");
+                    Console.WriteLine(" ");
+                    quit = true;
+                }
+                else
+                {
+                    //Control for valid menu entry
+                    Console.WriteLine(" ");
+                    Console.WriteLine("Invalid menu choice. Please choose a valid menu option.");
+                    Console.WriteLine(" ");
+                }
+
+                //Start of CRUD, Load, and Save if & else if statments
+                if(load)
+                {
+                    //Read Employees.json
+                    string json = File.ReadAllText(fileName);
+
+                    //Deserialize JSON to Array of Objects
+                    dynamic employeeJSON = JsonConvert.DeserializeObject<List<dynamic>>(json);
+                    // foreach(var employee in employeeJSON)//Had to use var instead of Employee type to see each employee in the list
+                    // {
+                    //     Console.WriteLine(employee);
+                    // }
+                    
+                    //loop to assign objects to the array
+                    for(int i=0; i<employees.Length; i++)
+                    {
+                        //had to declare types of these variables due to the use of dynamic list
+                        string lastName = employeeJSON[i].LastName;
+                        string firstName = employeeJSON[i].FirstName;
+                        string workerType = employeeJSON[i].WorkerType;
+
+                        if(employeeJSON[i].WorkerType == "Hourly")
+                        {
+                            double hourlyRate = Convert.ToDouble(employeeJSON[i].HourlyRate);//had to declare types of these variables due to the use of dynamic list
+                            employees[i] = new Hourly(lastName,firstName,workerType,hourlyRate);
+                        }
+                        else if(employeeJSON[i].WorkerType == "Salary")
+                        {
+                            double annualSalary = Convert.ToDouble(employeeJSON[i].AnnualSalary);//had to declare types of these variables due to the use of dynamic list
+                            employees[i] = new Salary(lastName,firstName,workerType,annualSalary);
+                        }else
+                        {
+                            employees[i] = new Employee(lastName,firstName,workerType);
+                        }
+                    }
                 
-                //Console.WriteLine(employees[i]);
-            }
-            
+                    //Print the names of the employees that were loaded.
+                    foreach (Employee employee in employees)
+                    {
+                        Console.WriteLine($"{employee.FirstName} {employee.LastName} was loaded");
+                    }
+                    load = false;
+                    dataLoaded = true;
+                }
+                else if(read)//loop through employees array and display them in the console
+                {
+                    //Control for if array isn't loaded
+                    if(CheckLoad(dataLoaded))
+                    {
+                        foreach (Employee employee in employees)//print each employee to the console
+                        {
+                            Console.WriteLine(employee);
+                        }
+                    }
+
+                    read = false;
+                }
+                else if(update)
+                {
+                    //Control for if array isn't loaded
+                    if(CheckLoad(dataLoaded))
+                    {
+                        foreach (Employee employee in employees)//print each employee to the console
+                        {
+                            Console.WriteLine(employee);
+                        }
+                        //Ask the user which employee they would like to update and save that to a variable
+                        Console.WriteLine(" ");
+                        //Ask user for first name and last name
+                        Console.WriteLine("Which employee would you like to update? Please enter their first and last names only.");
+                        Console.WriteLine(" ");
+                        updateEmployee = Console.ReadLine();
+
+                        //Parse first and last name
+                        string[] names = updateEmployee.Split(" ");
+
+                        //loop through employees array and check that first and last names match the same object in the employees array
+                        for(int i=0; i<employees.Length; i++)
+                        {
+                            if(names[0].ToLower() == employees[i].FirstName.ToLower() && names[1].ToLower() == employees[i].LastName.ToLower())//Use first and last name to find the employee
+                            {
+                                string newValue = " ";
+                                string hourlySalaryOrOther = " ";
+                                string updateChoice = " ";
+                                do
+                                {
+                                    //Ask what they would like to update for that employee?
+                                    Console.WriteLine(" ");
+                                    Console.WriteLine($"What would you like to update about {employees[i].FirstName} {employees[i].LastName}?");
+                                    Console.WriteLine("Options:");
+                                    Console.WriteLine("First Name");
+                                    Console.WriteLine("Last Name");
+                                    Console.WriteLine("Worker Type");
+                                    Console.WriteLine(" ");
+                                    updateChoice = Console.ReadLine();
+
+                                    //ifs for updateChoice
+                                    if(updateChoice.ToLower() == "first name")
+                                    {
+                                        Console.WriteLine(" ");
+                                        Console.WriteLine($"What would you like to update {employees[i].FirstName} to?");
+                                        Console.WriteLine("");
+
+                                        newValue = Console.ReadLine();
+                                        employees[i].FirstName = newValue;
+
+                                        Console.WriteLine(" ");
+                                        Console.WriteLine($"Their first name has been updated to {employees[i].FirstName}.");
+                                        Console.WriteLine("");
+                                        update = false;
+                                        break;
+                                    }else if(updateChoice.ToLower() == "last name")
+                                    {
+                                        Console.WriteLine(" ");
+                                        Console.WriteLine($"What would you like to update {employees[i].LastName} to?");
+                                        Console.WriteLine("");
+
+                                        newValue = Console.ReadLine();
+                                        employees[i].LastName = newValue;
+
+                                        Console.WriteLine(" ");
+                                        Console.WriteLine($"Their last name has been updated to {employees[i].LastName}.");
+                                        Console.WriteLine("");
+                                        update = false;
+                                        break;
+                                    }else if(updateChoice.ToLower() == "worker type")
+                                    {
+                                        do
+                                        {
+                                            //Hourly, Salary, or Other?
+                                            Console.WriteLine(" ");
+                                            Console.WriteLine($"Would you like to update {employees[i].FirstName} {employees[i].LastName} to hourly, salary, or other?");
+                                            Console.WriteLine("");
+
+                                            hourlySalaryOrOther = Console.ReadLine();
+
+                                            if(hourlySalaryOrOther.ToLower() == "hourly")
+                                            {
+                                                Console.WriteLine(" ");
+                                                Console.WriteLine($"What would you like to update {employees[i].FirstName}'s hourly rate to?");
+                                                Console.WriteLine("");
+
+                                                double newHourly = Convert.ToDouble(Console.ReadLine());
+                                                //turn this employee into a new hourly employee with newHourly HourlyRate
+                                                Hourly newHourlyEmployee = new Hourly(employees[i].LastName, employees[i].FirstName, "Hourly", newHourly);
+                                                employees[i] = newHourlyEmployee;
+
+                                                Console.WriteLine(" ");
+                                                Console.WriteLine("Here are your changes for this employee:");
+                                                Console.WriteLine(employees[i]);
+                                                Console.WriteLine("");
+                                                update = false;
+                                            }else if(hourlySalaryOrOther.ToLower() == "salary")
+                                            {
+                                                Console.WriteLine(" ");
+                                                Console.WriteLine($"What would you like to update {employees[i].FirstName}'s salary to?");
+                                                Console.WriteLine("");
+
+                                                double newSalary = Convert.ToDouble(Console.ReadLine());
+                                                //turn this employee into a new salary employee with newSalary Salary
+                                                Salary newSalaryEmployee = new Salary(employees[i].LastName, employees[i].FirstName, "Salary", newSalary);
+                                                employees[i] = newSalaryEmployee;
+
+                                                Console.WriteLine(" ");
+                                                Console.WriteLine("Here are your changes for this employee:");
+                                                Console.WriteLine(employees[i]);
+                                                Console.WriteLine("");
+                                                update = false;
+                                            }else if(hourlySalaryOrOther.ToLower() == "other")
+                                            {
+                                                //turn this employee into a new Employee employee
+                                                Employee newEmployee = new Employee(employees[i].LastName, employees[i].FirstName, "Other");
+                                                employees[i] = newEmployee;
+
+                                                Console.WriteLine(" ");
+                                                Console.WriteLine("Here are your changes for this employee:");
+                                                Console.WriteLine(employees[i]);
+                                                Console.WriteLine("");
+                                                update = false;
+                                            }
+                                        }while(hourlySalaryOrOther.ToLower() != "hourly" &&
+                                                hourlySalaryOrOther.ToLower() != "salary" &&
+                                                hourlySalaryOrOther.ToLower() != "other");
+                                    }
+                                    //The user didn't choose an available option. Prompt to try again
+                                    Console.WriteLine(" ");
+                                    Console.WriteLine("Choose an available option. Please check your spelling and try again.");
+                                    Console.WriteLine(" ");
+                                }while(updateChoice.ToLower() != "first name" &&
+                                        updateChoice.ToLower() != "last name" &&
+                                        updateChoice.ToLower() != "worker type");
+                            }
+                        }
+                        //The user spelled the name incorrectly. Ask them to choose update and try again
+                        if(update)
+                        {
+                            Console.WriteLine(" ");
+                            Console.WriteLine("The name was spelled incorrectly. Please check your spelling and try again.");
+                            Console.WriteLine(" ");
+                            update = false;
+                        }
+                    }
+                    
+                }
+            }while(!quit);
 
             
 
@@ -191,6 +485,21 @@ namespace payroll
         //     Console.WriteLine(testPeople[i]);
         // }
         
+        }//End of Main
+
+        public static bool CheckLoad(bool dataLoaded)
+        {
+            if(!dataLoaded)
+            {
+                Console.WriteLine(" ");
+                Console.WriteLine("Please load your data before reading it. Choose \"L\" or \"Load\".\n");
+                Console.WriteLine(" ");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
-    }
-}
+    }//End of Class Program
+}//End of namespace payroll
