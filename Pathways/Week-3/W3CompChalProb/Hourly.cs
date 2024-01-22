@@ -11,6 +11,7 @@ namespace payroll
         public Hourly() : base()
         {
             HourlyRate = 20.00;
+            WorkerType = "Hourly";
         }
 
         //constructor when all Employee values are passed

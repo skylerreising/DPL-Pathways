@@ -1,47 +1,53 @@
 [
-    {
-        "LastName": "Smith",
-        "FirstName": "John",
-        "WorkerType": "Other"
-    },
-    {
-        "LastName": "Doe",
-        "FirstName": "Jane",
-        "WorkerType": "Other"
-    },
-    {
-        "LastName": "Brown",
-        "FirstName": "Charlie",
-        "WorkerType": "Other"
-    },
-    {
-        "LastName": "Johnson",
-        "FirstName": "Alex",
-        "WorkerType": "Hourly",
-        "HourlyRate": 25.00
-    },
-    {
-        "LastName": "Williams",
-        "FirstName": "Samantha",
-        "WorkerType": "Hourly",
-        "HourlyRate": 30.00
-    },
-    {
-        "LastName": "Miller",
-        "FirstName": "David",
-        "WorkerType": "Hourly",
-        "HourlyRate": 22.00
-    },
-    {
-        "LastName": "Davis",
-        "FirstName": "Emily",
-        "WorkerType": "Salary",
-        "AnnualSalary": 120000.00
-    },
-    {
-        "LastName": "Garcia",
-        "FirstName": "Michael",
-        "WorkerType": "Salary",
-        "AnnualSalary": 95000.00
-    }
+  {
+    "LastName": "Smithy",
+    "FirstName": "John",
+    "WorkerType": "Other"
+  },
+  {
+    "LastName": "Doe",
+    "FirstName": "Jane",
+    "WorkerType": "Other"
+  },
+  {
+    "LastName": "Brown",
+    "FirstName": "Charlie",
+    "WorkerType": "Other"
+  },
+  {
+    "HourlyRate": 25.0,
+    "LastName": "Johnson",
+    "FirstName": "Alex",
+    "WorkerType": "Hourly"
+  },
+  {
+    "HourlyRate": 30.0,
+    "LastName": "Williams",
+    "FirstName": "Samantha",
+    "WorkerType": "Hourly"
+  },
+  {
+    "HourlyRate": 22.0,
+    "LastName": "Miller",
+    "FirstName": "David",
+    "WorkerType": "Hourly"
+  },
+  {
+    "AnnualSalary": 120000.0,
+    "LastName": "Davis",
+    "FirstName": "Emily",
+    "WorkerType": "Salary"
+  },
+  {
+    "AnnualSalary": 95000.0,
+    "LastName": "Garcia",
+    "FirstName": "Michael",
+    "WorkerType": "Salary"
+  },
+  {
+    "AnnualSalary": 175000.0,
+    "LastName": "Reising",
+    "FirstName": "Skyler",
+    "WorkerType": "Salary"
+  }
 ]

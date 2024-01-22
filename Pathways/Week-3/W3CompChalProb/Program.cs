@@ -60,10 +60,30 @@ Steps:
             //if Other, delete HourlyRate or SalaryRate
 (8) Create delete
     //Control for if array isn't loaded
+    //Ask the user which employee they would like to delete and save that to a variable
+        //Ask user for first name and last name
+        //Parse first and last name
+        //Use first and last name to find the employee
+        //if not found, ask for the employee name again
     //Make sure to add default constructor/object after deletion
 (9) Create create
     //Control for if array isn't loaded
+    //Control for if there isn't room in the array to store a new employee
+    //Loop through employees array and find a default employee object to write over
+    //Ask what kind of worker type employee they want to create?
+        //Hourly, Salary, or Other?
+            //Instantiate class at that index for that worker type
+        //First Name?
+        //Last Name? 
+        //Hourly, Salary, or Other?
+            //if Hourly, what per hour?
+            //if Salary, what salary
+
 (10) Create save
+    Control for if array isn't loaded
+    //Read employees array
+    //convert the array to a JSON string
+    //Write the string to the Employees.json file
 
 */
 
@@ -92,6 +112,7 @@ namespace payroll
             bool dataLoaded = false;
             string fileName = "Employees.json";
             string updateEmployee;
+            bool roomForEmployee = false;
 
             //instantiate array
             Employee[] employees = new Employee[9];
@@ -219,6 +240,176 @@ namespace payroll
                     load = false;
                     dataLoaded = true;
                 }
+                else if(save)
+                {
+                    if(CheckLoad(dataLoaded))
+                    {
+                        //Read employees array
+                        //convert the array to a JSON string
+                        string newJSON = JsonConvert.SerializeObject(employees, Formatting.Indented);
+
+                        //Write the string to the Employees.json file
+                        File.WriteAllText("Employees.json", newJSON);
+                        save = false;
+                    }else
+                    {
+                        //Tell user their data isn't loaded
+                        Console.WriteLine(" ");
+                        Console.WriteLine("Your employees were not saved. Please load your employees first.");
+                        Console.WriteLine(" ");
+                        save = false;
+                    }
+                }
+                else if(create)
+                {
+                    //Control for if there isn't room in the array to store a new employee
+                    //if there is room, grab index of default Employee object where new one will be created
+                    updateEmployee = null;
+                    int openIndex = -1;
+                    for (int i=0; i<employees.Length; i++)
+                    {
+                        if(employees[i].LastName == null)
+                        {
+                            openIndex = i;
+                            roomForEmployee = true;
+                            break;
+                        }
+                    }
+
+                    //Control for if array isn't loaded and no room
+                    if(CheckLoad(dataLoaded) && roomForEmployee)
+                    {
+                        string newValue = " ";
+                        string updateChoice = " ";
+                        do
+                        {
+                            //Ask what kind of worker type employee they want to create?
+                            //Hourly, Salary, or Other?
+                            Console.WriteLine(" ");
+                            Console.WriteLine($"What kind of worker type would you like to create?");
+                            Console.WriteLine("Options:");
+                            Console.WriteLine("Hourly");
+                            Console.WriteLine("Salary");
+                            Console.WriteLine("Other");
+                            Console.WriteLine(" ");
+                            updateChoice = Console.ReadLine();
+
+                            //Instantiate class at that index for that worker type
+                            //ifs for updateChoice
+                            if(updateChoice.ToLower() == "hourly")
+                            {
+                                employees[openIndex] = new Hourly();
+
+                                Console.WriteLine(" ");
+                                Console.WriteLine("Please enter a first name.");
+                                Console.WriteLine("");
+
+                                newValue = Console.ReadLine();
+                                employees[openIndex].FirstName = newValue;
+
+                                Console.WriteLine(" ");
+                                Console.WriteLine("Please enter a last name.");
+                                Console.WriteLine("");
+
+                                newValue = Console.ReadLine();
+                                employees[openIndex].LastName = newValue;
+
+                                Console.WriteLine(" ");
+                                Console.WriteLine("Please enter their hourly rate.");
+                                Console.WriteLine("");
+
+                                newValue = Console.ReadLine();
+                                ((Hourly)employees[openIndex]).HourlyRate = Convert.ToDouble(newValue);  
+
+                                Console.WriteLine(" ");
+                                Console.WriteLine("Here is your new employee");
+                                Console.WriteLine(employees[openIndex]);
+                                Console.WriteLine("");
+                                
+                                roomForEmployee = false;
+                                openIndex = -1;
+                                newValue = " ";
+                                create = false;
+                                break;
+                            }else if(updateChoice.ToLower() == "salary")
+                            {
+                                employees[openIndex] = new Salary();
+
+                                Console.WriteLine(" ");
+                                Console.WriteLine("Please enter a first name.");
+                                Console.WriteLine("");
+
+                                newValue = Console.ReadLine();
+                                employees[openIndex].FirstName = newValue;
+
+                                Console.WriteLine(" ");
+                                Console.WriteLine("Please enter a last name.");
+                                Console.WriteLine("");
+
+                                newValue = Console.ReadLine();
+                                employees[openIndex].LastName = newValue;
+
+                                Console.WriteLine(" ");
+                                Console.WriteLine("Please enter their salary.");
+                                Console.WriteLine("");
+
+                                newValue = Console.ReadLine();
+                                ((Salary)employees[openIndex]).AnnualSalary = Convert.ToDouble(newValue);  
+
+                                Console.WriteLine(" ");
+                                Console.WriteLine("Here is your new employee");
+                                Console.WriteLine(employees[openIndex]);
+                                Console.WriteLine("");
+                                
+                                roomForEmployee = false;
+                                openIndex = -1;
+                                newValue = " ";
+                                create = false;
+                                break;
+                            }else if(updateChoice.ToLower() == "other")
+                            {
+                                Console.WriteLine(" ");
+                                Console.WriteLine("Please enter a first name.");
+                                Console.WriteLine("");
+
+                                newValue = Console.ReadLine();
+                                employees[openIndex].FirstName = newValue;
+
+                                Console.WriteLine(" ");
+                                Console.WriteLine("Please enter a last name.");
+                                Console.WriteLine("");
+
+                                newValue = Console.ReadLine();
+                                employees[openIndex].LastName = newValue;
+
+                                Console.WriteLine(" ");
+                                Console.WriteLine("Here is your new employee");
+                                Console.WriteLine(employees[openIndex]);
+                                Console.WriteLine("");
+                                
+                                roomForEmployee = false;
+                                openIndex = -1;
+                                newValue = " ";
+                                create = false;
+                                break;
+                            }
+                            //The user didn't choose an available option. Prompt to try again
+                            Console.WriteLine(" ");
+                            Console.WriteLine("Choose an available option. Please check your spelling and try again.");
+                            Console.WriteLine(" ");
+                        }while(updateChoice.ToLower() != "hourly" &&
+                                updateChoice.ToLower() != "salary" &&
+                                updateChoice.ToLower() != "other");                      
+                    }
+                    //There is no room or they haven't loaded the array. 
+                    if(create)
+                    {
+                        Console.WriteLine(" ");
+                        Console.WriteLine("You either haven't loaded your employees or there is no room to create a new employee. Please either load your employees or delete an employee, or both, before trying again.");
+                        Console.WriteLine(" ");
+                        create = false;
+                    }
+                }
                 else if(read)//loop through employees array and display them in the console
                 {
                     //Control for if array isn't loaded
@@ -247,139 +438,194 @@ namespace payroll
                         //Ask user for first name and last name
                         Console.WriteLine("Which employee would you like to update? Please enter their first and last names only.");
                         Console.WriteLine(" ");
+                        updateEmployee = null;
                         updateEmployee = Console.ReadLine();
 
                         //Parse first and last name
                         string[] names = updateEmployee.Split(" ");
 
                         //loop through employees array and check that first and last names match the same object in the employees array
-                        for(int i=0; i<employees.Length; i++)
+                        if(names.Length == 2)
                         {
-                            if(names[0].ToLower() == employees[i].FirstName.ToLower() && names[1].ToLower() == employees[i].LastName.ToLower())//Use first and last name to find the employee
+                            for(int i=0; i<employees.Length; i++)
                             {
-                                string newValue = " ";
-                                string hourlySalaryOrOther = " ";
-                                string updateChoice = " ";
-                                do
+                                if(employees[i] != null && names[0] != null && names[1] != null &&
+                                    names[0].ToLower() == employees[i].FirstName?.ToLower() && names[1].ToLower() == employees[i].LastName?.ToLower())//Use first and last name to find the employee
                                 {
-                                    //Ask what they would like to update for that employee?
-                                    Console.WriteLine(" ");
-                                    Console.WriteLine($"What would you like to update about {employees[i].FirstName} {employees[i].LastName}?");
-                                    Console.WriteLine("Options:");
-                                    Console.WriteLine("First Name");
-                                    Console.WriteLine("Last Name");
-                                    Console.WriteLine("Worker Type");
-                                    Console.WriteLine(" ");
-                                    updateChoice = Console.ReadLine();
-
-                                    //ifs for updateChoice
-                                    if(updateChoice.ToLower() == "first name")
+                                    string newValue = " ";
+                                    string hourlySalaryOrOther = " ";
+                                    string updateChoice = " ";
+                                    do
                                     {
+                                        //Ask what they would like to update for that employee?
                                         Console.WriteLine(" ");
-                                        Console.WriteLine($"What would you like to update {employees[i].FirstName} to?");
-                                        Console.WriteLine("");
-
-                                        newValue = Console.ReadLine();
-                                        employees[i].FirstName = newValue;
-
+                                        Console.WriteLine($"What would you like to update about {employees[i].FirstName} {employees[i].LastName}?");
+                                        Console.WriteLine("Options:");
+                                        Console.WriteLine("First Name");
+                                        Console.WriteLine("Last Name");
+                                        Console.WriteLine("Worker Type");
                                         Console.WriteLine(" ");
-                                        Console.WriteLine($"Their first name has been updated to {employees[i].FirstName}.");
-                                        Console.WriteLine("");
-                                        update = false;
-                                        break;
-                                    }else if(updateChoice.ToLower() == "last name")
-                                    {
-                                        Console.WriteLine(" ");
-                                        Console.WriteLine($"What would you like to update {employees[i].LastName} to?");
-                                        Console.WriteLine("");
+                                        updateChoice = Console.ReadLine();
 
-                                        newValue = Console.ReadLine();
-                                        employees[i].LastName = newValue;
-
-                                        Console.WriteLine(" ");
-                                        Console.WriteLine($"Their last name has been updated to {employees[i].LastName}.");
-                                        Console.WriteLine("");
-                                        update = false;
-                                        break;
-                                    }else if(updateChoice.ToLower() == "worker type")
-                                    {
-                                        do
+                                        //ifs for updateChoice
+                                        if(updateChoice.ToLower() == "first name")
                                         {
-                                            //Hourly, Salary, or Other?
                                             Console.WriteLine(" ");
-                                            Console.WriteLine($"Would you like to update {employees[i].FirstName} {employees[i].LastName} to hourly, salary, or other?");
+                                            Console.WriteLine($"What would you like to update {employees[i].FirstName} to?");
                                             Console.WriteLine("");
 
-                                            hourlySalaryOrOther = Console.ReadLine();
+                                            newValue = Console.ReadLine();
+                                            employees[i].FirstName = newValue;
 
-                                            if(hourlySalaryOrOther.ToLower() == "hourly")
+                                            Console.WriteLine(" ");
+                                            Console.WriteLine($"Their first name has been updated to {employees[i].FirstName}.");
+                                            Console.WriteLine("");
+                                            update = false;
+                                            break;
+                                        }else if(updateChoice.ToLower() == "last name")
+                                        {
+                                            Console.WriteLine(" ");
+                                            Console.WriteLine($"What would you like to update {employees[i].LastName} to?");
+                                            Console.WriteLine("");
+
+                                            newValue = Console.ReadLine();
+                                            employees[i].LastName = newValue;
+
+                                            Console.WriteLine(" ");
+                                            Console.WriteLine($"Their last name has been updated to {employees[i].LastName}.");
+                                            Console.WriteLine("");
+                                            update = false;
+                                            break;
+                                        }else if(updateChoice.ToLower() == "worker type")
+                                        {
+                                            do
                                             {
+                                                //Hourly, Salary, or Other?
                                                 Console.WriteLine(" ");
-                                                Console.WriteLine($"What would you like to update {employees[i].FirstName}'s hourly rate to?");
+                                                Console.WriteLine($"Would you like to update {employees[i].FirstName} {employees[i].LastName} to hourly, salary, or other?");
                                                 Console.WriteLine("");
 
-                                                double newHourly = Convert.ToDouble(Console.ReadLine());
-                                                //turn this employee into a new hourly employee with newHourly HourlyRate
-                                                Hourly newHourlyEmployee = new Hourly(employees[i].LastName, employees[i].FirstName, "Hourly", newHourly);
-                                                employees[i] = newHourlyEmployee;
+                                                hourlySalaryOrOther = Console.ReadLine();
 
-                                                Console.WriteLine(" ");
-                                                Console.WriteLine("Here are your changes for this employee:");
-                                                Console.WriteLine(employees[i]);
-                                                Console.WriteLine("");
-                                                update = false;
-                                            }else if(hourlySalaryOrOther.ToLower() == "salary")
-                                            {
-                                                Console.WriteLine(" ");
-                                                Console.WriteLine($"What would you like to update {employees[i].FirstName}'s salary to?");
-                                                Console.WriteLine("");
+                                                if(hourlySalaryOrOther.ToLower() == "hourly")
+                                                {
+                                                    Console.WriteLine(" ");
+                                                    Console.WriteLine($"What would you like to update {employees[i].FirstName}'s hourly rate to?");
+                                                    Console.WriteLine("");
 
-                                                double newSalary = Convert.ToDouble(Console.ReadLine());
-                                                //turn this employee into a new salary employee with newSalary Salary
-                                                Salary newSalaryEmployee = new Salary(employees[i].LastName, employees[i].FirstName, "Salary", newSalary);
-                                                employees[i] = newSalaryEmployee;
+                                                    double newHourly = Convert.ToDouble(Console.ReadLine());
+                                                    //turn this employee into a new hourly employee with newHourly HourlyRate
+                                                    Hourly newHourlyEmployee = new Hourly(employees[i].LastName, employees[i].FirstName, "Hourly", newHourly);
+                                                    employees[i] = newHourlyEmployee;
 
-                                                Console.WriteLine(" ");
-                                                Console.WriteLine("Here are your changes for this employee:");
-                                                Console.WriteLine(employees[i]);
-                                                Console.WriteLine("");
-                                                update = false;
-                                            }else if(hourlySalaryOrOther.ToLower() == "other")
-                                            {
-                                                //turn this employee into a new Employee employee
-                                                Employee newEmployee = new Employee(employees[i].LastName, employees[i].FirstName, "Other");
-                                                employees[i] = newEmployee;
+                                                    Console.WriteLine(" ");
+                                                    Console.WriteLine("Here are your changes for this employee:");
+                                                    Console.WriteLine(employees[i]);
+                                                    Console.WriteLine("");
+                                                    update = false;
+                                                }else if(hourlySalaryOrOther.ToLower() == "salary")
+                                                {
+                                                    Console.WriteLine(" ");
+                                                    Console.WriteLine($"What would you like to update {employees[i].FirstName}'s salary to?");
+                                                    Console.WriteLine("");
 
-                                                Console.WriteLine(" ");
-                                                Console.WriteLine("Here are your changes for this employee:");
-                                                Console.WriteLine(employees[i]);
-                                                Console.WriteLine("");
-                                                update = false;
-                                            }
-                                        }while(hourlySalaryOrOther.ToLower() != "hourly" &&
-                                                hourlySalaryOrOther.ToLower() != "salary" &&
-                                                hourlySalaryOrOther.ToLower() != "other");
-                                    }
-                                    //The user didn't choose an available option. Prompt to try again
-                                    // Console.WriteLine(" ");
-                                    // Console.WriteLine("Choose an available option. Please check your spelling and try again.");
-                                    // Console.WriteLine(" ");
-                                }while(updateChoice.ToLower() != "first name" &&
-                                        updateChoice.ToLower() != "last name" &&
-                                        updateChoice.ToLower() != "worker type");
-                                break;
-                            }
+                                                    double newSalary = Convert.ToDouble(Console.ReadLine());
+                                                    //turn this employee into a new salary employee with newSalary Salary
+                                                    Salary newSalaryEmployee = new Salary(employees[i].LastName, employees[i].FirstName, "Salary", newSalary);
+                                                    employees[i] = newSalaryEmployee;
+
+                                                    Console.WriteLine(" ");
+                                                    Console.WriteLine("Here are your changes for this employee:");
+                                                    Console.WriteLine(employees[i]);
+                                                    Console.WriteLine("");
+                                                    update = false;
+                                                }else if(hourlySalaryOrOther.ToLower() == "other")
+                                                {
+                                                    //turn this employee into a new Employee employee
+                                                    Employee newEmployee = new Employee(employees[i].LastName, employees[i].FirstName, "Other");
+                                                    employees[i] = newEmployee;
+
+                                                    Console.WriteLine(" ");
+                                                    Console.WriteLine("Here are your changes for this employee:");
+                                                    Console.WriteLine(employees[i]);
+                                                    Console.WriteLine("");
+                                                    update = false;
+                                                }
+                                            }while(hourlySalaryOrOther.ToLower() != "hourly" &&
+                                                    hourlySalaryOrOther.ToLower() != "salary" &&
+                                                    hourlySalaryOrOther.ToLower() != "other");
+                                        }
+                                        //The user didn't choose an available option. Prompt to try again
+                                        // Console.WriteLine(" ");
+                                        // Console.WriteLine("Choose an available option. Please check your spelling and try again.");
+                                        // Console.WriteLine(" ");
+                                    }while(updateChoice.ToLower() != "first name" &&
+                                            updateChoice.ToLower() != "last name" &&
+                                            updateChoice.ToLower() != "worker type");
+                                    break;
+                                }
+                            }                          
                         }
                         //The user spelled the name incorrectly. Ask them to choose update and try again
-                        if(update)
+                            if(update)
+                            {
+                                Console.WriteLine(" ");
+                                Console.WriteLine("The name was spelled incorrectly. Please check your spelling and try again.");
+                                Console.WriteLine(" ");
+                                update = false;
+                            }
+                    }                   
+                }
+                else if(delete)
+                {
+                    //Control for if array isn't loaded
+                    if(CheckLoad(dataLoaded))
+                    {
+                        foreach (Employee employee in employees)//print each employee to the console
+                        {
+                            Console.WriteLine($"{employee.FirstName} {employee.LastName}");
+                        }
+                        //Ask the user which employee they would like to delete and save that to a variable
+                        Console.WriteLine(" ");
+                        //Ask user for first name and last name
+                        Console.WriteLine("Which employee would you like to delete? Please enter their first and last names only.");
+                        Console.WriteLine(" ");
+                        updateEmployee = null;
+                        updateEmployee = Console.ReadLine();
+
+                        //Parse first and last name
+                        string[] names = updateEmployee.Split(" ");
+
+                        //loop through employees array and check that first and last names match the same object in the employees array
+                        if(names.Length == 2)
+                        {
+                            for(int i=0; i<employees.Length; i++)
+                            {
+                                if(employees[i] != null && names[0] != null && names[1] != null &&
+                                    names[0].ToLower() == employees[i].FirstName?.ToLower() && names[1].ToLower() == employees[i].LastName?.ToLower())//Use first and last name to find the employee
+                                {
+                                    //delete the employee
+                                    //Make sure to add default constructor/object after deletion
+                                    employees[i] = new Employee();
+
+                                    Console.WriteLine(" ");
+                                    Console.WriteLine($"{updateEmployee} was deleted.");
+                                    Console.WriteLine("");
+
+                                    delete = false;
+                                    break;
+                                }
+                            }
+                        }
+                        //if not found, ask for the employee name again
+                        if(delete)
                         {
                             Console.WriteLine(" ");
                             Console.WriteLine("The name was spelled incorrectly. Please check your spelling and try again.");
                             Console.WriteLine(" ");
-                            update = false;
+                            delete = false;
                         }
                     }
-                    
                 }
             }while(!quit);
 

@@ -11,6 +11,7 @@ namespace payroll
         public Salary() : base()
         {
             AnnualSalary = 100000.00;
+            WorkerType = "Salary";
         }
 
         //constructor when all Employee values are passed
