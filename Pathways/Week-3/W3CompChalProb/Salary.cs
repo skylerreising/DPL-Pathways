@@ -15,7 +15,7 @@ namespace payroll
         }
 
         //constructor when all Employee values are passed
-        public Salary(string lastName, string firstName, string workerType, double annualSalary) : base(lastName,firstName,workerType)
+        public Salary(string lastName, string firstName, string workerType, double annualSalary) : base(lastName, firstName, workerType)
         {
             AnnualSalary = annualSalary;
         }
@@ -24,7 +24,7 @@ namespace payroll
         public override double CalculateBonus()
         {
             double rate = AnnualSalary * 0.1;//8 hours in a day, 10 days in a pay period
-            return Math.Round(rate,2);
+            return Math.Round(rate, 2);
         }
 
         public override string ToString()

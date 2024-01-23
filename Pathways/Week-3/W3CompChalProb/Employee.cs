@@ -2,19 +2,25 @@ using System;
 
 namespace payroll
 {
+
+    public enum WorkerType
+    {
+        Hourly,
+        Salary
+    }
     class Employee
     {
         //Properties
         public string LastName { get; set; }
         public string FirstName { get; set; }
-        public string WorkerType { get; set; } //Is this neccessary to return 0 bonus for a non-salary or non-hourly employee?
+        public WorkerType  WorkerType { get; set; } //Is this neccessary to return 0 bonus for a non-salary or non-hourly employee?
 
         //default constructor
         public Employee()
         {
             LastName = null;
             FirstName = null;
-            WorkerType = null;
+            //WorkerType = null;
         }
 
         //constructor when all Employee values are passed
@@ -22,7 +28,7 @@ namespace payroll
         {
             LastName = lastName;
             FirstName = firstName;
-            WorkerType = workerType;
+            //WorkerType = workerType;
         }
 
         //Methods

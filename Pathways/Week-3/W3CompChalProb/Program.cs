@@ -93,6 +93,7 @@ using System.IO;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using System.Net.Quic;
+using System.Diagnostics;
 
 namespace payroll
 {
@@ -208,6 +209,10 @@ namespace payroll
                     // {
                     //     Console.WriteLine(employee);
                     // }
+
+                    // Run time assertions to make sure things are as they should be
+                    Debug.Assert(employeeJSON != null, "JSON actually was null");
+                    Debug.Assert(employeeJSON!.Count() > 0, "List was empty");
                     
                     //loop to assign objects to the array
                     for(int i=0; i<employeeJSON.Count; i++)
