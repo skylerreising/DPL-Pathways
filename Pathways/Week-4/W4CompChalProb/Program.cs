@@ -30,8 +30,8 @@ Requirements
         iii. Current balance
     b. Constructors
     c. Deposit method including...
-        i. account id
-        ii. deposit amount > 0
+        i. account id - get from user
+        ii. deposit amount > 0 - get from user
         iii. Increases balance by the deposit amount
     d. Abstract Withdrawal method (different for all 3 classes) including...
         i. account id
@@ -85,5 +85,29 @@ Steps
 2. Design iteratively and test incrementally
     i. Create and test your classes and methods with hard-coded test data so that there is a list of accounts of different types with different balances.
 3. Write algo for User Interface
+4. Refactor
 
 */
+using System;
+
+namespace Banking
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            //Create a list of Savings accounts and print
+            List<Accounts> allTypesOfAccounts = new List<Accounts>();
+
+            Savings myDefaultSavings = new Savings();
+            Savings skylerSavings = new Savings(1,"Savings", 1.85m, 0.06m);
+            allTypesOfAccounts.Add(myDefaultSavings);
+            allTypesOfAccounts.Add(skylerSavings);
+
+            foreach(Accounts account in allTypesOfAccounts)
+            {
+                Console.WriteLine(account);
+            }
+        }
+    }
+}
