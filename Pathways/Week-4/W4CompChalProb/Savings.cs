@@ -12,7 +12,7 @@ namespace Banking
         //Default constructor
         public Savings(): base()
         {
-            InterestRate = 0.00m;
+            InterestRate = 0.05m;
             AccountType = "Savings";
         }
 
@@ -25,13 +25,13 @@ namespace Banking
         //         i. Annual interest rate (IInterest interface)
         public decimal CalculateAnnualInterest()
         {
-            return AccountBalance += InterestRate * AccountBalance;
+            return InterestRate * AccountBalance;
         }
 
         //     b. Abstract Withdrawal Method
         public override decimal Withdrawal(decimal userEnteredWithdrawal)
         {
-        //         i. as long as balance > withdrawal TODO in Program
+        //         i. as long as balance > withdrawal TODO IN PROGRAM
             return AccountBalance -= userEnteredWithdrawal;
         }
 
@@ -39,7 +39,7 @@ namespace Banking
         //A. Don't add the interest rate but do report it on the ToString()
         public override string ToString()
         {
-            return base.ToString() + $"Interest Rate: {InterestRate}";
+            return base.ToString() + $"Interest Rate: {InterestRate}\nInterest added at the end of year: ${Math.Round(CalculateAnnualInterest(),2)}";
         }
     }
 }

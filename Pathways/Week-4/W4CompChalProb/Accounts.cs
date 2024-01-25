@@ -20,7 +20,7 @@ namespace Banking
         public Accounts()
         {
             AccountID = 0;
-            AccountType = null;
+            AccountType = null!;
             AccountBalance = 0;
         }
 
@@ -56,7 +56,7 @@ namespace Banking
         public override string ToString()
         {
             Console.WriteLine(" ");
-            return $"Account ID: {AccountID}\nAccount Type: {AccountType}\nCurrent Balance: {AccountBalance}\n";
+            return $"Account ID: {AccountID}\nAccount Type: {AccountType}\nCurrent Balance: ${AccountBalance}\n";
         }
     }
 }

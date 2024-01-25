@@ -101,8 +101,39 @@ namespace Banking
 
             Savings myDefaultSavings = new Savings();
             Savings skylerSavings = new Savings(1,"Savings", 1.85m, 0.06m);
+            Savings cohenSavings = new(4,"Savings", 109.95m, 0.08m);
+
             allTypesOfAccounts.Add(myDefaultSavings);
             allTypesOfAccounts.Add(skylerSavings);
+            allTypesOfAccounts.Add(cohenSavings);
+
+            // foreach(Accounts account in allTypesOfAccounts)
+            // {
+            //     Console.WriteLine(account);
+            // }
+
+            //add CDs to the list and print those
+            CD myDefaultCD = new CD();
+            CD skylerCD = new CD(2, "CD", 143487.89m, .10m);
+            CD cohenCD = new CD(5, "CD", 4787.21m, .13m);
+
+            allTypesOfAccounts.Add(myDefaultCD);
+            allTypesOfAccounts.Add(skylerCD);
+            allTypesOfAccounts.Add(cohenCD);
+
+            // foreach(Accounts account in allTypesOfAccounts)
+            // {
+            //     Console.WriteLine(account);
+            // }
+
+            //add Checking accounts to the list and print them
+            Checking myDefaultChecking = new();
+            Checking skylerChecking = new(3, "Checking", 4675.38m, 49.99m);
+            Checking cohenChecking = new(6, "Checking", 65.43m, 4.99m);
+
+            allTypesOfAccounts.Add(myDefaultChecking);
+            allTypesOfAccounts.Add(skylerChecking);
+            allTypesOfAccounts.Add(cohenChecking);
 
             foreach(Accounts account in allTypesOfAccounts)
             {
