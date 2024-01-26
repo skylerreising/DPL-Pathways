@@ -31,8 +31,15 @@ namespace Banking
         //     b. Abstract Withdrawal Method
         public override decimal Withdrawal(decimal userEnteredWithdrawal)
         {
-        //         i. as long as balance > withdrawal TODO IN PROGRAM
-            return AccountBalance -= userEnteredWithdrawal;
+        //         i. as long as balance > withdrawal
+            if(AccountBalance > userEnteredWithdrawal)
+            {
+                return AccountBalance -= userEnteredWithdrawal;
+            }else
+            {
+                Console.WriteLine("Your withdrawal request was more than your balance. Please try again.");
+                return AccountBalance;
+            }
         }
 
         //     c. Overriding ToString()

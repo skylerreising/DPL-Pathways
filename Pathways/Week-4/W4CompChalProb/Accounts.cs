@@ -35,7 +35,6 @@ namespace Banking
         // c. Deposit method
         public void Deposit(decimal userEnteredDeposit)
         {
-        //     i. account id //TODO
         //     ii. deposit amount > 0
             if(userEnteredDeposit>0)
             {

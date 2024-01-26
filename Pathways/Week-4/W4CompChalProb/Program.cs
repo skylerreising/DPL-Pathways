@@ -89,6 +89,8 @@ Steps
 
 */
 using System;
+using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 
 namespace Banking
 {
@@ -96,7 +98,7 @@ namespace Banking
     {
         public static void Main(string[] args)
         {
-            //Create a list of Savings accounts and print
+            //Create a list of Savings accounts
             List<Accounts> allTypesOfAccounts = new List<Accounts>();
 
             Savings myDefaultSavings = new Savings();
@@ -107,11 +109,6 @@ namespace Banking
             allTypesOfAccounts.Add(skylerSavings);
             allTypesOfAccounts.Add(cohenSavings);
 
-            // foreach(Accounts account in allTypesOfAccounts)
-            // {
-            //     Console.WriteLine(account);
-            // }
-
             //add CDs to the list and print those
             CD myDefaultCD = new CD();
             CD skylerCD = new CD(2, "CD", 143487.89m, .10m);
@@ -120,11 +117,6 @@ namespace Banking
             allTypesOfAccounts.Add(myDefaultCD);
             allTypesOfAccounts.Add(skylerCD);
             allTypesOfAccounts.Add(cohenCD);
-
-            // foreach(Accounts account in allTypesOfAccounts)
-            // {
-            //     Console.WriteLine(account);
-            // }
 
             //add Checking accounts to the list and print them
             Checking myDefaultChecking = new();
@@ -135,10 +127,154 @@ namespace Banking
             allTypesOfAccounts.Add(skylerChecking);
             allTypesOfAccounts.Add(cohenChecking);
 
-            foreach(Accounts account in allTypesOfAccounts)
+            UserMenu(allTypesOfAccounts);
+
+            // b. D - Deposit by account id from user and deposit amount
+            //     i. If account exists, add the deposit amount to the balance
+            // c. W - Withdrawl by account id from user and withdrawal amount
+            //     i. If account exists with enough of a balance, perfomr the withdrawal **including any penalties**
+            // d. Q - Quit the transaction processing
+        }
+
+        public static string UserMenu(List<Accounts> allTypesOfAccounts)
+        {
+            string userMenuChoice;
+            List<string> menuChoices = new List<string>{"l","d","w","q"};
+
+            Console.WriteLine("");
+            Console.WriteLine("Welcome to your bank. Please choose from the following options:");
+            Console.WriteLine("Choose \"L\" to load a list of all accounts.");
+            Console.WriteLine("Choose \"D\" to make a deposit.");
+            Console.WriteLine("Choose \"W\" to make a withdrawal.");
+            Console.WriteLine("Choose \"Q\" to quit.");
+            Console.WriteLine("");
+
+            userMenuChoice = Console.ReadLine().ToLower();
+            
+            if(menuChoices.Contains(userMenuChoice))
             {
-                Console.WriteLine(account);
+                if(userMenuChoice == "l")
+                {
+                    Load(allTypesOfAccounts);
+                    return "Loading all accounts.";
+                }
+                else if(userMenuChoice == "d")
+                {
+                    makeDeposit(allTypesOfAccounts);
+                    return "You chose deposit.";
+                }
+                else if(userMenuChoice == "w")
+                {
+                    // makeWithdrawal();
+                    return "You chose withdraw.";
+                }
+                else
+                {
+                    // Quit();
+                    return "Than you, see you again soon.";
+                }
+            }else
+            {
+                Console.WriteLine("");
+                return "Please enter one letter corresponding to the menu of items.";
+            }
+
+            static void Load(List<Accounts> accounts)
+            {
+                // a. L - List all of the accounts 
+                foreach(Accounts account in accounts)
+                {
+                    Console.WriteLine(account);
+                }
+                UserMenu(accounts);
+            }
+
+            static void makeDeposit(List<Accounts> accounts)
+            {
+                // D - Deposit by account id from user and deposit amount
+                //Get account id from user and save it
+                Console.WriteLine("");
+                Console.WriteLine("Please enter the account id of the account you would like to make a deposit in:");
+                Console.WriteLine("");
+
+                string userAccountID = Console.ReadLine();
+                decimal userDeposit;
+                bool match = false;
+
+                // i. If account exists, add the deposit amount to the balance
+                for(int i=0; i<accounts.Count; i++)
+                {
+                    if(accounts[i].AccountID.ToString() == userAccountID)
+                    {
+                        //Get deposit amount from the user and call Deposit method from Accounts class
+                        Console.WriteLine("");
+                        Console.WriteLine("Please enter the amount you would like to deposit.");
+                        Console.WriteLine("");
+
+                        userDeposit = Convert.ToDecimal(Console.ReadLine());
+
+                        accounts[i].Deposit(userDeposit);
+
+                        Console.WriteLine("");
+                        Console.WriteLine($"You have deposited ${userDeposit} into your {accounts[i].AccountType} account.\nYour new balance is ${accounts[i].AccountBalance}");
+                        Console.WriteLine("");
+                        match = true;
+                        UserMenu(accounts);
+                        break;
+                    }
+                }
+                if(match == false)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine($"No match for account id {userAccountID} was found. Please try again.");
+                    Console.WriteLine("");
+                    makeDeposit(accounts);
+                } 
             }
         }
     }
 }
+//TESTING
+            // //Create a list of Savings accounts and print
+            // List<Accounts> allTypesOfAccounts = new List<Accounts>();
+
+            // Savings myDefaultSavings = new Savings();
+            // Savings skylerSavings = new Savings(1,"Savings", 1.85m, 0.06m);
+            // Savings cohenSavings = new(4,"Savings", 109.95m, 0.08m);
+
+            // allTypesOfAccounts.Add(myDefaultSavings);
+            // allTypesOfAccounts.Add(skylerSavings);
+            // allTypesOfAccounts.Add(cohenSavings);
+
+            // // foreach(Accounts account in allTypesOfAccounts)
+            // // {
+            // //     Console.WriteLine(account);
+            // // }
+
+            // //add CDs to the list and print those
+            // CD myDefaultCD = new CD();
+            // CD skylerCD = new CD(2, "CD", 143487.89m, .10m);
+            // CD cohenCD = new CD(5, "CD", 4787.21m, .13m);
+
+            // allTypesOfAccounts.Add(myDefaultCD);
+            // allTypesOfAccounts.Add(skylerCD);
+            // allTypesOfAccounts.Add(cohenCD);
+
+            // // foreach(Accounts account in allTypesOfAccounts)
+            // // {
+            // //     Console.WriteLine(account);
+            // // }
+
+            // //add Checking accounts to the list and print them
+            // Checking myDefaultChecking = new();
+            // Checking skylerChecking = new(3, "Checking", 4675.38m, 49.99m);
+            // Checking cohenChecking = new(6, "Checking", 65.43m, 4.99m);
+
+            // allTypesOfAccounts.Add(myDefaultChecking);
+            // allTypesOfAccounts.Add(skylerChecking);
+            // allTypesOfAccounts.Add(cohenChecking);
+
+            // foreach(Accounts account in allTypesOfAccounts)
+            // {
+            //     Console.WriteLine(account);
+            // }

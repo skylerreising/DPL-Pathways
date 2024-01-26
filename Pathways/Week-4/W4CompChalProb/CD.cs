@@ -33,15 +33,22 @@ namespace Banking
         //     b. Abstract Withdrawal Method
         public override decimal Withdrawal(decimal userEnteredWithdrawal)
         {
-        //         i. as long as balance > withdrawal + penalty TODO IN PROGRAM
-            return AccountBalance -= userEnteredWithdrawal;
+        //         i. as long as balance > withdrawal + penalty
+            if(AccountBalance > userEnteredWithdrawal + Penalty * AccountBalance)
+            {
+                return AccountBalance -= userEnteredWithdrawal + Penalty*AccountBalance;
+            }else
+            {
+                Console.WriteLine($"The maximum amount you may withdraw due to a penalty is {AccountBalance - AccountBalance * Penalty}. Please try again.");
+                return AccountBalance;
+            }
         }
 
         //     c. Overriding ToString()
         //             A. Don't add the interest rate but do report it on the ToString()
         public override string ToString()
         {
-            return base.ToString() + $"Interest Rate: {InterestRate}\nInterest added at the end of year: ${Math.Round(CalculateAnnualInterest(),2)}";
+            return base.ToString() + $"Interest Rate: {InterestRate}\nInterest added at the end of year: ${Math.Round(CalculateAnnualInterest(),2)}\nEarly Withdrawal Penalty: {Penalty*100}%";
         }
     }
 }

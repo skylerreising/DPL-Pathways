@@ -27,14 +27,21 @@ namespace Banking
         //     b. Abstract Withdrawal Method
         public override decimal Withdrawal(decimal userEnteredWithdrawal)
         {
-        //         i. as long as withdrawal <= balance/2 TODO IN PROGRAM
-            return AccountBalance -= userEnteredWithdrawal;
+        //         i. as long as withdrawal <= balance/2 
+            if(AccountBalance/2 >= userEnteredWithdrawal)
+            {
+                return AccountBalance -= userEnteredWithdrawal;
+            }else
+            {
+                Console.WriteLine($"The maximum amount you may withdraw is {AccountBalance/2 - userEnteredWithdrawal}. Please try again.");
+                return AccountBalance;
+            }
         }
 
         //     c. Overriding ToString()
-        // public override string ToString()
-        // {
-        //     return base.ToString();
-        // }
+        public override string ToString()
+        {
+            return base.ToString() + $"Annual Fee: {AnnualFee}";
+        }
     }
 }
