@@ -33,7 +33,7 @@ namespace Banking
                 return AccountBalance -= userEnteredWithdrawal;
             }else
             {
-                Console.WriteLine($"The maximum amount you may withdraw is {AccountBalance/2 - userEnteredWithdrawal}. Please try again.");
+                Console.WriteLine($"The maximum amount you may withdraw is {Math.Round(AccountBalance/2,2, MidpointRounding.ToZero)}. Please try again.");
                 return AccountBalance;
             }
         }

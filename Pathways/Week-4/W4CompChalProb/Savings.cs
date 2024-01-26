@@ -32,7 +32,7 @@ namespace Banking
         public override decimal Withdrawal(decimal userEnteredWithdrawal)
         {
         //         i. as long as balance > withdrawal
-            if(AccountBalance > userEnteredWithdrawal)
+            if(AccountBalance >= userEnteredWithdrawal)
             {
                 return AccountBalance -= userEnteredWithdrawal;
             }else
@@ -46,7 +46,7 @@ namespace Banking
         //A. Don't add the interest rate but do report it on the ToString()
         public override string ToString()
         {
-            return base.ToString() + $"Interest Rate: {InterestRate}\nInterest added at the end of year: ${Math.Round(CalculateAnnualInterest(),2)}";
+            return base.ToString() + $"Interest Rate: {InterestRate}\nInterest added at the end of year: ${Math.Round(CalculateAnnualInterest(),2, MidpointRounding.ToZero)}";
         }
     }
 }
