@@ -107,14 +107,14 @@ namespace Banking
             allTypesOfAccounts.Add(skylerSavings);
             allTypesOfAccounts.Add(cohenSavings);
 
-            //add CDs to the list and print those
+            //add CDs to the list
             CD skylerCD = new CD(2, "CD", 143487.89m, .10m);
             CD cohenCD = new CD(5, "CD", 4787.21m, .13m);
 
             allTypesOfAccounts.Add(skylerCD);
             allTypesOfAccounts.Add(cohenCD);
 
-            //add Checking accounts to the list and print them
+            //add Checking accounts to the list
             Checking skylerChecking = new(3, "Checking", 4675.38m, 49.99m);
             Checking cohenChecking = new(6, "Checking", 65.43m, 4.99m);
 
