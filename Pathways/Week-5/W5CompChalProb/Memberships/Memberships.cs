@@ -79,7 +79,7 @@ namespace Members
 
         public override string ToString()
         {
-            return $"Account ID: {AccountID}\nPrimary Email: {PrimaryEmail}\nMembership Type: {MembershipType}\nAnnual Cost: {AnnualCost}\nPurchase Total: {AmountOfPurchases}";
+            return $"Account ID: {AccountID}\nPrimary Email: {PrimaryEmail}\nMembership Type: {MembershipType}\nAnnual Cost: {AnnualCost}\nPurchase Total: {AmountOfPurchases}\n";
         }
     }
 }
