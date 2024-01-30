@@ -26,7 +26,7 @@ namespace Members
         //ADD ANNUAL MEMBERSHIP DISCOUNT FROM INTERFACE
         public override string ToString()
         {
-            return base.ToString() + $"Your cash back rewards: {CashBackRewards()}";
+            return base.ToString() + $"Your cash back rewards: ${Math.Round(CashBackRewards(),2, MidpointRounding.ToZero)}";
         }
     }
 }

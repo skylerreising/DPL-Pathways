@@ -5,12 +5,17 @@ namespace Members
 {
     abstract class Memberships
     {
-        public List<Memberships> myMembers = Program.AllMemberships();
+        private static List<Memberships> myMembers = new List<Memberships>();
         public int AccountID { get; set; }
         public string? PrimaryEmail { get; set; }
         public string? MembershipType { get; set; }
         public decimal AnnualCost { get; set; }
         public decimal AmountOfPurchases { get; set; }
+
+        public static List<Memberships> GetMembers()
+        {
+            return myMembers;
+        }
         public Memberships()
         {
             //If the list is empty, AccountID == 1 otherwise...
@@ -47,7 +52,7 @@ namespace Members
 
         public void Purchase(int accountID, decimal amountOfPurchase)
         {
-            //loop to see if the account exists and if it does, do the math
+            // loop to see if the account exists and if it does, do the math
             for(int i=0; i<myMembers.Count; i++)
             {
                 if(myMembers[i].AccountID == accountID)

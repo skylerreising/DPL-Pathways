@@ -113,17 +113,19 @@ namespace Members
 {
     class Program
     {
-        //Create a list of Memberships and pass it to Memberships class
-        public static List<Memberships> AllMemberships()
-        {
-            //ADD MEMBERSHIPS HERE
-            
-
-            return new List<Memberships>();
-        }
         public static void Main(string[] args)
         {   
+            //Get member list and add members to it
+            List<Memberships> allMembers = Memberships.GetMembers();
 
+            Regular skylerRegular = new();
+
+            allMembers.Add(skylerRegular);
+
+            foreach(Memberships member in allMembers)
+            {
+                Console.WriteLine(member);
+            }
         }
     }
 }
