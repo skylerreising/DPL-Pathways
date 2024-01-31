@@ -3,18 +3,18 @@ using System.Linq;
 
 namespace Members
 {
-    class Corporate : Memberships
+    class NonProfit : Memberships
     {
         public decimal PercentCashBack { get; set; }
 
-        public Corporate()
+        public NonProfit()
         {
-            PercentCashBack = 0.25m;
-            MembershipType = "Corporate";
-            AnnualCost = 19.99m;
+            PercentCashBack = 0.15m;
+            MembershipType = "Non-Profit";
+            AnnualCost = 9.99m;
         }
 
-        public Corporate(string primaryEmail, string membershipType, decimal annualCost, decimal amountOfPurchases, decimal percentCashBack) : base(primaryEmail,membershipType,annualCost,amountOfPurchases)
+        public NonProfit(string primaryEmail, string membershipType, decimal annualCost, decimal amountOfPurchases, decimal percentCashBack) : base(primaryEmail,membershipType,annualCost,amountOfPurchases)
         {
             PercentCashBack = percentCashBack;
         }

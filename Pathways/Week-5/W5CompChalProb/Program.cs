@@ -103,6 +103,7 @@ Steps
     A. Program
     B. Hard coded data
     C. Classes and interface
+    D. Create Admin and User Menu
 
 */
 using System;
@@ -115,16 +116,104 @@ namespace Members
     {
         public static void Main(string[] args)
         {   
-            //Get member list and add members to it
-            List<Memberships> allMembers = Memberships.GetMembers();
+            //Instanciate member list and add members to it
+            List<Memberships> allMembers = new List<Memberships>();
 
-            Regular skylerRegular = new();
+            //Regular Members
+            Regular bobRegular = new("bob@bob.com", "Regular", 19.99m, 57.01m, 0.3m);
+            Regular skylerRegular = new("skyler@skyler.com", "Regular", 17.99m, 3056.00m, .05m);
 
+            //Executive Members
+            //Bobby's purchase amount
+            decimal bobbyPurchaseAmount = 1000.00m;
+            Executive bobExecutive = new("bobby@bob.com", "Executive", 99.99m, bobbyPurchaseAmount, ExecutivePercentCashBack(bobbyPurchaseAmount));
+
+            //Skyler's purchase amount
+            decimal skylerPurchaseAmount = 999.00m;
+            Executive skylerExecutive = new("skydawg@skyler.com", "Executive", 99.99m, skylerPurchaseAmount, ExecutivePercentCashBack(skylerPurchaseAmount));
+
+            //Non-Profit Members
+            //Rob's Membership Type
+            string robMembershipType = "Non-Profit";
+            bool robMilitaryOrEducational = false;
+            if(robMembershipType.ToLower() == "military" || robMembershipType.ToLower() == "educational")
+            {
+                robMilitaryOrEducational = true;
+            }
+
+            NonProfit bobNonProfit = new("Rob@bob.com", robMembershipType, 9.99m, 2000.00m, NonProfitPercentCashBack(robMilitaryOrEducational));
+
+            //Skyler's Membership Type
+            string skylerMembershipType = "Military";
+            bool skylerMilitaryOrEducational = false;
+            if(skylerMembershipType.ToLower() == "military" || skylerMembershipType.ToLower() == "educational")
+            {
+                skylerMilitaryOrEducational = true;
+            }
+
+            NonProfit skylerNonProfit = new("skydad@skyler.com", skylerMembershipType, 9.99m, 2000.00m, NonProfitPercentCashBack(skylerMilitaryOrEducational));
+
+            //Corporate Members
+            Corporate bobCorporate = new("robert@bob.com", "Corporate", 19.99m, 57.01m, 0.25m);
+            Corporate skylerCorporate = new("skydude@skyler.com", "Corporate", 17.99m, 3056.00m, .075m);
+
+            allMembers.Add(bobRegular);
             allMembers.Add(skylerRegular);
 
+            allMembers.Add(bobExecutive);
+            allMembers.Add(skylerExecutive);
+
+            allMembers.Add(bobNonProfit);
+            allMembers.Add(skylerNonProfit);
+
+            allMembers.Add(bobCorporate);
+            allMembers.Add(skylerCorporate);
+
+            //pass the list to the Membership class to assign accountIDs
+            AssignUniqueID(allMembers);
+
+            //Top level Menu
+            MainMenu.TheMenu();
+        }
+
+        public static void AssignUniqueID(List<Memberships> allMembers)
+        {
             foreach(Memberships member in allMembers)
             {
-                Console.WriteLine(member);
+                if (allMembers.Count == 0)
+                {
+                    member.AccountID = 1;
+                }else
+                {
+                    member.AccountID = allMembers.Max(x => x.AccountID)+1;
+                }
+            }
+        }
+
+        static decimal ExecutivePercentCashBack(decimal amount)
+        {
+            // i. Cash-back % for two tiers
+                // a. Below $1000
+                // b. >= $1000
+            if(amount >= 1000.00m)
+            {
+                return 0.20m;
+            }else
+            {
+                return 0.15m;
+            }
+        }
+
+        static decimal NonProfitPercentCashBack(bool militaryOrEducational)
+        {
+            // a. If military or educational, double cash-back %
+            decimal PercentCashBack = 0.15m;
+            if(militaryOrEducational)
+            {
+                return PercentCashBack *= 2;
+            }else
+            {
+                return PercentCashBack;
             }
         }
     }
