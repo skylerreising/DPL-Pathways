@@ -16,7 +16,7 @@ namespace Members
                 AdminMenu.Admin(allMembers);
             }else if(mainMenuChoice?.ToLower() == "m" || mainMenuChoice?.ToLower() == "member")
             {
-                // CustomerMenu.Customer();
+                CustomerMenu.Customer(allMembers);
             }else if(mainMenuChoice?.ToLower() == "q" || mainMenuChoice?.ToLower() == "quit")
             {
                 Quit();

@@ -11,7 +11,7 @@ namespace Members
             {
                 Console.WriteLine(member);
             }
-            AdminMenu.Admin(allMembers);
+            MainMenu.TheMenu(allMembers);
         }
     }
 }
