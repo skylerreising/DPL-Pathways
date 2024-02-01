@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Members
 {
-    abstract class Memberships
+    public abstract class Memberships
     {
         public int AccountID { get; set; }
         public string? PrimaryEmail { get; set; }

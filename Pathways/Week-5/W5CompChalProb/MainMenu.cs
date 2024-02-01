@@ -5,7 +5,7 @@ namespace Members
 {
     public class MainMenu
     {
-        public static void TheMenu()
+        public static void TheMenu(List<Memberships> allMembers)
         {
             //Get user's main menu choice
             Console.WriteLine("Please choose a menu:\n\"A\" - Admin\n\"M\" - Member\n\"Q\" - Quit");
@@ -13,7 +13,7 @@ namespace Members
 
             if(mainMenuChoice?.ToLower() == "a" || mainMenuChoice?.ToLower() == "admin")
             {
-                AdminMenu.Admin();
+                AdminMenu.Admin(allMembers);
             }else if(mainMenuChoice?.ToLower() == "m" || mainMenuChoice?.ToLower() == "member")
             {
                 // CustomerMenu.Customer();
@@ -23,7 +23,7 @@ namespace Members
             }else
             {
                 Console.WriteLine("\nInvalid entry. Please enter \"A\" or \"M\" to select admin or member menu.\n");
-                TheMenu();
+                TheMenu(allMembers);
             }
         }
 

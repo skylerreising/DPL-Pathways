@@ -172,8 +172,17 @@ namespace Members
             //pass the list to the Membership class to assign accountIDs
             AssignUniqueID(allMembers);
 
+            //Pass the list to the classes that need it
+            //UpdateMembership.Update(allMembers);
+
+            //Print members for testing comparison
+            foreach(Memberships member in allMembers)
+            {
+                Console.WriteLine(member);
+            }
+
             //Top level Menu
-            MainMenu.TheMenu();
+            MainMenu.TheMenu(allMembers);
         }
 
         public static void AssignUniqueID(List<Memberships> allMembers)
