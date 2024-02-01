@@ -50,61 +50,98 @@ namespace Members
 
                 Console.WriteLine(allMembers[allMembers.Count-1]);
                 Create(allMembers);
+            }else if(userAccountType == "2")
+            {
+                createMembershipType = "Executive";
+
+                Console.WriteLine("\nPlease enter the new member's primary email address:\n");
+                createPrimaryEmail = Console.ReadLine();
+
+                Console.WriteLine("\nPlease enter the new member's annual cost:\n");
+                createAnnualCost = Convert.ToDecimal(Console.ReadLine());
+
+                Console.WriteLine("\nPlease enter the new member's amount of purchases they have made:\n");
+                createAmountOfPurchases = Convert.ToDecimal(Console.ReadLine());
+
+                Executive createExecutive = new(createPrimaryEmail!, createMembershipType, createAnnualCost, createAmountOfPurchases, Program.ExecutivePercentCashBack(createAmountOfPurchases));
+
+                createAccountID = allMembers.Max(x => x.AccountID)+1;
+                createExecutive.AccountID = createAccountID;
+
+                allMembers.Add(createExecutive);
+
+                Console.WriteLine("\nThis account has been created\n");
+
+                Console.WriteLine(allMembers[allMembers.Count-1]);
+                Create(allMembers);
             }
-            // else if(userAccountType == "2")
-            // {
-            //     Executive updateExecutive = new(allMembers[i].PrimaryEmail!, "Executive", 99.99m, allMembers[i].AmountOfPurchases, Program.ExecutivePercentCashBack(allMembers[i].AmountOfPurchases));
+            else if(userAccountType == "3")
+            {
+                bool milOrEd = false;
+                Console.WriteLine("\nIf you are a military organization enter 1 and if you're an educational organization enter 2. If you're neither, press enter.\n");
+                string? memberTypeTitle = Console.ReadLine();
+                if(memberTypeTitle == "1")
+                {   
+                    memberTypeTitle = "Military";
+                    milOrEd = true;
+                }else if(memberTypeTitle == "2")
+                {
+                    memberTypeTitle = "Educational";
+                    milOrEd = true;
+                }else
+                {
+                    memberTypeTitle = "Non-Profit";
+                }
 
-            //     //give new account the same ID for the member
-            //     updateExecutive.AccountID = allMembers[i].AccountID;
+                Console.WriteLine("\nPlease enter the new member's primary email address:\n");
+                createPrimaryEmail = Console.ReadLine();
 
-            //     allMembers[i] = updateExecutive;
-            //     Console.WriteLine("\nThis account has been updated to executive\n");
+                Console.WriteLine("\nPlease enter the new member's annual cost:\n");
+                createAnnualCost = Convert.ToDecimal(Console.ReadLine());
 
-            //     Console.WriteLine(allMembers[i]);
-            //     Update(allMembers);
-            // }else if(userAccountType == "3")
-            // {
-            //     bool milOrEd = false;
-            //     Console.WriteLine("\nIf you are a military organization enter 1 and if you're an educational organization enter 2. If you're neither, press enter.\n");
-            //     string? memberTypeTitle = Console.ReadLine();
-            //     if(memberTypeTitle == "1")
-            //     {   
-            //         memberTypeTitle = "Military";
-            //         milOrEd = true;
-            //     }else if(memberTypeTitle == "2")
-            //     {
-            //         memberTypeTitle = "Educational";
-            //         milOrEd = true;
-            //     }else
-            //     {
-            //         memberTypeTitle = "Non-Profit";
-            //     }
+                Console.WriteLine("\nPlease enter the new member's amount of purchases they have made:\n");
+                createAmountOfPurchases = Convert.ToDecimal(Console.ReadLine());
 
-            //     NonProfit updateNonProfit = new(allMembers[i].PrimaryEmail!, memberTypeTitle, 9.99m, allMembers[i].AmountOfPurchases, Program.NonProfitPercentCashBack(milOrEd));
+                NonProfit createNonProfit = new(createPrimaryEmail!, memberTypeTitle, createAnnualCost, createAmountOfPurchases, Program.NonProfitPercentCashBack(milOrEd));
 
-            //     //give new account the same ID for the member
-            //     updateNonProfit.AccountID = allMembers[i].AccountID;
+                createAccountID = allMembers.Max(x => x.AccountID)+1;
+                createNonProfit.AccountID = createAccountID;
 
-            //     allMembers[i] = updateNonProfit;
-            //     Console.WriteLine("\nThis account has been updated to non-profit\n");
+                allMembers.Add(createNonProfit);
 
-            //     Console.WriteLine(allMembers[i]);
-            //     Update(allMembers);
-            // }else if(userAccountType == "4")
-            // {
-            //     Corporate updateCorporate = new(allMembers[i].PrimaryEmail!, "Corporate", 19.99m, allMembers[i].AmountOfPurchases, .25m);
+                Console.WriteLine("\nThis account has been created\n");
 
-            //     //give new account the same ID for the member
-            //     updateCorporate.AccountID = allMembers[i].AccountID;
+                Console.WriteLine(allMembers[allMembers.Count-1]);
+                Create(allMembers);
+            }else if(userAccountType == "4")
+            {
+                createMembershipType = "Corporate";
 
-            //     allMembers[i] = updateCorporate;
-            //     Console.WriteLine("\nThis account has been updated to corporate\n");
+                Console.WriteLine("\nPlease enter the new member's primary email address:\n");
+                createPrimaryEmail = Console.ReadLine();
 
-            //     Console.WriteLine(allMembers[i]);
-            //     Update(allMembers);
-            // }
-            else if(userAccountType.ToLower() == "e")
+                Console.WriteLine("\nPlease enter the new member's annual cost:\n");
+                createAnnualCost = Convert.ToDecimal(Console.ReadLine());
+
+                Console.WriteLine("\nPlease enter the new member's amount of purchases they have made:\n");
+                createAmountOfPurchases = Convert.ToDecimal(Console.ReadLine());
+
+                Console.WriteLine("\nPlease enter the new member's percent cash back:\n");
+                createPercentCashBack = Convert.ToDecimal(Console.ReadLine());
+
+                Corporate createCorporate = new(createPrimaryEmail!, createMembershipType, createAnnualCost, createAmountOfPurchases, createPercentCashBack);
+
+                createAccountID = allMembers.Max(x => x.AccountID)+1;
+                createCorporate.AccountID = createAccountID;
+
+                allMembers.Add(createCorporate);
+
+                Console.WriteLine("\nThis account has been created\n");
+
+                Console.WriteLine(allMembers[allMembers.Count-1]);
+                Create(allMembers);
+            }
+            else if(userAccountType?.ToLower() == "e")
             {
                 AdminMenu.Admin(allMembers);
             }
