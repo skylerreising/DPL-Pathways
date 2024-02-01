@@ -172,9 +172,6 @@ namespace Members
             //pass the list to the Membership class to assign accountIDs
             AssignUniqueID(allMembers);
 
-            //Pass the list to the classes that need it
-            //UpdateMembership.Update(allMembers);
-
             //Print members for testing comparison
             foreach(Memberships member in allMembers)
             {
@@ -199,7 +196,7 @@ namespace Members
             }
         }
 
-        static decimal ExecutivePercentCashBack(decimal amount)
+        public static decimal ExecutivePercentCashBack(decimal amount)
         {
             // i. Cash-back % for two tiers
                 // a. Below $1000
@@ -213,7 +210,7 @@ namespace Members
             }
         }
 
-        static decimal NonProfitPercentCashBack(bool militaryOrEducational)
+        public static decimal NonProfitPercentCashBack(bool militaryOrEducational)
         {
             // a. If military or educational, double cash-back %
             decimal PercentCashBack = 0.15m;

@@ -18,15 +18,18 @@ namespace Members
                 //If that user exists, continue. If not, ask them to try again.
                 Console.WriteLine("\nPlease enter the ID number of the account you would like to update.\n");
 
-                string? userEnteredID = Console.ReadLine();
+                int? userEnteredID = Convert.ToInt32(Console.ReadLine());
                 string? userOption;
                 string? userAccountType;
+
+                bool found = false;
 
                 //loop through the list to see if that account exists
                 for(int i=0; i<allMembers.Count; i++)
                 {
-                    if(allMembers[i].AccountID == Convert.ToInt32(userEnteredID))
+                    if(allMembers[i].AccountID == userEnteredID)
                     {
+                        found = true;
                         //Give user list of options for what they would like to update about that member based on the member type
                         Console.WriteLine($"\nWhat would you like to update for the user with the account ID of {userEnteredID}?\nPlease choose from the following options:\n\"P\" - Primary Email Address\n\"T\" - MembershipType\n\"C\" - Annual Cost\n\"A\" - Amount of their puchases\n\"E\" - Exit");
 
@@ -56,7 +59,7 @@ namespace Members
                                 Update(allMembers);
                             }else if(userAccountType == "2")
                             {
-                                Executive updateExecutive = new(allMembers[i].PrimaryEmail!, "Executive", 99.99m, allMembers[i].AmountOfPurchases, .15m);
+                                Executive updateExecutive = new(allMembers[i].PrimaryEmail!, "Executive", 99.99m, allMembers[i].AmountOfPurchases, Program.ExecutivePercentCashBack(allMembers[i].AmountOfPurchases));
 
                                 //give new account the same ID for the member
                                 updateExecutive.AccountID = allMembers[i].AccountID;
@@ -68,7 +71,23 @@ namespace Members
                                 Update(allMembers);
                             }else if(userAccountType == "3")
                             {
-                                NonProfit updateNonProfit = new(allMembers[i].PrimaryEmail!, "Non-Profit", 9.99m, allMembers[i].AmountOfPurchases, .15m);
+                                bool milOrEd = false;
+                                Console.WriteLine("\nIf you are a military organization enter 1 and if you're an educational organization enter 2. If you're neither, press enter.\n");
+                                string? memberTypeTitle = Console.ReadLine();
+                                if(memberTypeTitle == "1")
+                                {   
+                                    memberTypeTitle = "Military";
+                                    milOrEd = true;
+                                }else if(memberTypeTitle == "2")
+                                {
+                                    memberTypeTitle = "Educational";
+                                    milOrEd = true;
+                                }else
+                                {
+                                    memberTypeTitle = "Non-Profit";
+                                }
+
+                                NonProfit updateNonProfit = new(allMembers[i].PrimaryEmail!, memberTypeTitle, 9.99m, allMembers[i].AmountOfPurchases, Program.NonProfitPercentCashBack(milOrEd));
 
                                 //give new account the same ID for the member
                                 updateNonProfit.AccountID = allMembers[i].AccountID;
@@ -116,11 +135,13 @@ namespace Members
                             Console.WriteLine("Invalid entry. Please try again.");
                             Update(allMembers);
                         }
-                    }else
-                    {
-                        Console.WriteLine("\nNo account has that ID.\n");
-                        Update(allMembers);
                     }
+                }
+                if(!found)
+                {
+                //No ID Found
+                Console.WriteLine("\nNo account has that ID.\n");
+                Update(allMembers);
                 }
             }else if(updateChoice?.ToLower() == "e")
             {
