@@ -5,9 +5,13 @@ namespace Members
 {
     public class ReadMemberships
     {
-        public static void Read()
+        public static void Read(List<Memberships> allMembers)
         {
-            
+            foreach(Memberships member in allMembers)
+            {
+                Console.WriteLine(member);
+            }
+            AdminMenu.Admin(allMembers);
         }
     }
 }

@@ -20,10 +20,10 @@ namespace Members
 
             if(adminMenuChoice?.ToLower() == "c")
             {
-                //CreateMembership.Create(allMembers);
+                CreateMembership.Create(allMembers);
             }else if(adminMenuChoice?.ToLower() == "r")
             {
-
+                ReadMemberships.Read(allMembers);
             }else if(adminMenuChoice?.ToLower() == "u")
             {
                 UpdateMembership.Update(allMembers);
