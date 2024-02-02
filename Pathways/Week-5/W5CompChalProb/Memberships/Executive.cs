@@ -31,7 +31,7 @@ namespace Members
         }
         public override string ToString()
         {
-            return base.ToString() + $"Your cash back rewards:\nBased on purchases: ${Math.Round(CashBackRewards(),2, MidpointRounding.ToZero)}\nSpecial offer on Annual Membership: {Math.Round(SpecialOffer(), 2, MidpointRounding.ToZero)}\n";
+            return base.ToString() + $"Your cash back rewards based on purchases: ${Math.Round(CashBackRewards(),2, MidpointRounding.ToZero)}\nSpecial offer on Annual Membership: {Math.Round(SpecialOffer(), 2, MidpointRounding.ToZero)}\n";
         }
     }
 }

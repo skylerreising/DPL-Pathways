@@ -32,7 +32,11 @@ namespace Members
                     if(allMembers[i].AccountID == userEnteredID)
                     {
                         found = true;
-                        //TODO
+                        // iii. Print to console "Cash-back reward request for membership xxxxxx in the amount of $yyyy has been made."
+                        Console.WriteLine($"Cash-back reward request for membership {userEnteredID} in the amount of ${Math.Round(allMembers[i].CashBackRewards(),2, MidpointRounding.ToZero)} has been made.");
+                        // iv. Zero out the balance
+                        allMembers[i].AmountOfPurchases = 0.0m;
+                        ApplyCashBack(allMembers);
                     }
                 }
                 if(!found)
