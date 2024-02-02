@@ -11,7 +11,7 @@ namespace Members
     {
         public static void Purchase(List<Memberships> allMembers)
         {
-            //Ask user which member they would like to update by AccountID and save it in a variable
+            //Ask user which member they would like to purchase for by AccountID and save it in a variable
             //Or go back to Admin Menu
             Console.WriteLine("\nPlease enter \"A\" to enter your account ID to make a purchase or \"E\" to exit to the Customer menu.\n");
 

@@ -36,10 +36,10 @@ namespace Members
                 CustomerPurchase.Purchase(allMembers);
             }else if(adminMenuChoice?.ToLower() == "t")
             {
-                
-            }else if(adminMenuChoice?.ToLower() == "d")
+                CustomerReturnTransaction.Return(allMembers);
+            }else if(adminMenuChoice?.ToLower() == "a")
             {
-                
+                CustomerApplyCashBack.ApplyCashBack(allMembers);
             }else if(adminMenuChoice?.ToLower() == "q")
             {
                 MainMenu.TheMenu(allMembers);
