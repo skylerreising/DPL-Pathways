@@ -103,7 +103,7 @@ Steps
     A. Program
     B. Hard coded data
     C. Classes and interface
-    D. Create Admin and User Menu
+    D. Create Admin and User(Customer) Menu
 
 */
 using System;

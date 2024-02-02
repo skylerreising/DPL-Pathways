@@ -4,6 +4,7 @@
 //   iii. All accounts handle return in same way 
 //   iv. If id exists and purchase return > 0 current amount of purchases, decrease by the purchase amount
 using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Members
@@ -25,6 +26,8 @@ namespace Members
 
                 int? userEnteredID = Convert.ToInt32(Console.ReadLine());
 
+                Debug.Assert(allMembers.Any(m => m.AccountID == userEnteredID), "Member ID has to exist to make a return transaction.");
+
                 bool found = false;
 
                 for(int i=0; i<allMembers.Count; i++)
@@ -36,6 +39,8 @@ namespace Members
                         Console.WriteLine("\nPlease enter the return amount:\n");
 
                         decimal userReturn = Convert.ToDecimal(Console.ReadLine());
+
+                        Debug.Assert(userReturn > 0, "The user return amount should be greater than 0");
 
                         //if userReturn > 0, subtract it to their AmountOfPurchases
                         if(userReturn > 0)

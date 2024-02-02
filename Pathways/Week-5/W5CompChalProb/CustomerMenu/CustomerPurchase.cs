@@ -3,6 +3,7 @@
 // ii. amount of purchase > 0
 // iii. Amount of purchase increased by amount if amount > 0 and id exists
 using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Members
@@ -24,6 +25,8 @@ namespace Members
 
                 int? userEnteredID = Convert.ToInt32(Console.ReadLine());
 
+                Debug.Assert(allMembers.Any(m => m.AccountID == userEnteredID), "Member ID has to exist to make a return transaction.");
+
                 bool found = false;
 
                 for(int i=0; i<allMembers.Count; i++)
@@ -35,6 +38,8 @@ namespace Members
                         Console.WriteLine("\nPlease enter the purchase amount:\n");
 
                         decimal userPurchase = Convert.ToDecimal(Console.ReadLine());
+
+                        Debug.Assert(userPurchase > 0, "The user purchase amount should be greater than 0");
 
                         //if userPurchase > 0, add it to their AmountOfPurchases
                         if(userPurchase > 0)

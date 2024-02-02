@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Members
@@ -19,6 +20,7 @@ namespace Members
                 Console.WriteLine("\nPlease enter the ID number of the account you would like to update.\n");
 
                 int? userEnteredID = Convert.ToInt32(Console.ReadLine());
+                Debug.Assert(allMembers.Any(m => m.AccountID == userEnteredID), "User must enter a valid ID");
                 string? userOption;
                 string? userAccountType;
 

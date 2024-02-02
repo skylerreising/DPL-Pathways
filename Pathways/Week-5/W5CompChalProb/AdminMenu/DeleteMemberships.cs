@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Members
@@ -18,7 +19,9 @@ namespace Members
                 //If that user exists, continue. If not, ask them to try again.
                 Console.WriteLine("\nPlease enter the ID number of the account you would like to delete.\n");
 
-                string? userEnteredID = Console.ReadLine();
+                int? userEnteredID = Convert.ToInt32(Console.ReadLine());
+
+                Debug.Assert(allMembers.Any(m => m.AccountID == userEnteredID), "Must enter a valid ID");
 
                 bool found = false;
                 //loop through the list to see if that account exists

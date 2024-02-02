@@ -5,6 +5,8 @@
 //         iv. Zero out the balance
 using System;
 using System.Linq;
+using System.Diagnostics;
+
 
 namespace Members
 {
@@ -24,6 +26,8 @@ namespace Members
                 Console.WriteLine("\nPlease enter the ID number of the account you would like to apply the cash back award for\n");
 
                 int? userEnteredID = Convert.ToInt32(Console.ReadLine());
+
+                Debug.Assert(allMembers.Any(m => m.AccountID == userEnteredID), "Member ID has to exist to make a return transaction.");
 
                 bool found = false;
 

@@ -1,6 +1,7 @@
 // i. C - Create membership and add to the list
 //     a. No duplicated ids, id has to be unique
 using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Members
@@ -43,6 +44,7 @@ namespace Members
 
                 createAccountID = allMembers.Max(x => x.AccountID)+1;
                 createRegular.AccountID = createAccountID;
+                Debug.Assert(!allMembers.Any(m => m.AccountID == createRegular.AccountID), "The membership ID must be unique.");
 
                 allMembers.Add(createRegular);
 
@@ -67,6 +69,8 @@ namespace Members
 
                 createAccountID = allMembers.Max(x => x.AccountID)+1;
                 createExecutive.AccountID = createAccountID;
+                Debug.Assert(!allMembers.Any(m => m.AccountID == createExecutive.AccountID), "The membership ID must be unique.");
+
 
                 allMembers.Add(createExecutive);
 
@@ -106,6 +110,7 @@ namespace Members
 
                 createAccountID = allMembers.Max(x => x.AccountID)+1;
                 createNonProfit.AccountID = createAccountID;
+                Debug.Assert(!allMembers.Any(m => m.AccountID == createNonProfit.AccountID), "The membership ID must be unique.");
 
                 allMembers.Add(createNonProfit);
 
@@ -133,6 +138,8 @@ namespace Members
 
                 createAccountID = allMembers.Max(x => x.AccountID)+1;
                 createCorporate.AccountID = createAccountID;
+                Debug.Assert(!allMembers.Any(m => m.AccountID == createCorporate.AccountID), "The membership ID must be unique.");
+
 
                 allMembers.Add(createCorporate);
 
