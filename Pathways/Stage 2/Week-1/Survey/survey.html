@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fishing Survey</title>
+
+    <link rel="stylesheet" href="survey.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+          <h1 id="title" class="text-center">Fishing Survey</h1>
+          <p id="description" class="description text-center">
+            Thank you for taking the time to tell us of your fishing habits.
+          </p>
+        </header>
+        <form id="survey-form" onsubmit="myFunction()">
+          <div class="form-group">
+            <label id="name-label" for="name">Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="form-control"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label id="email-label" for="email">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              class="form-control"
+              placeholder="Enter your Email"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <p>Which fish do you prefer to target most often?</p>
+            <select id="dropdown" name="role" class="form-control" required>
+              <option disabled selected value>Pick your fish preference</option>
+              <option value="student">Large Mouth Bass</option>
+              <option value="fullfull">Walleye</option>
+              <option value="fullpart">Striper</option>
+              <option value="partfull">Bluegill</option>
+              <option value="partpart">Catfish</option>
+              <option value="preferNo">Perch</option>
+              <option value="preferNo">Anchovy</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+      
+          <div class="form-group">
+            <p>How often do you go fishing?</p>
+            <label>
+              <input
+                name="user-recommend"
+                value="everyDay"
+                type="radio"
+                class="input-radio"
+                checked
+              />Every day</label>
+
+            <label>
+              <input
+                name="user-recommend"
+                value="onceAWeek"
+                type="radio"
+                class="input-radio"
+              />Once a week</label>
+      
+            <label><input
+                name="user-recommend"
+                value="onceAMonth"
+                type="radio"
+                class="input-radio"
+              />Once a month</label>
+
+            <label><input
+                name="user-recommend"
+                value="aFewTimesAYear"
+                type="radio"
+                class="input-radio"
+              />A few times a year</label>
+
+              <label><input
+                name="user-recommend"
+                value="onceInABlueMoon"
+                type="radio"
+                class="input-radio"
+              />Once in a blue moon</label>
+
+          </div>
+      
+      
+          <div class="form-group">
+            <p>
+              What baits do you use?
+              <span class="clue">(Check all that apply)</span>
+            </p>
+      
+            <label
+              ><input
+                name="prefer"
+                value="jigs"
+                type="checkbox"
+                class="input-checkbox"
+              />Jigs</label>
+
+            <label>
+              <input
+                name="prefer"
+                value="swimBaits"
+                type="checkbox"
+                class="input-checkbox"
+              />Swim baits</label>
+
+            <label
+              ><input
+                name="prefer"
+                value="liveMinnows"
+                type="checkbox"
+                class="input-checkbox"
+              />Live minnows</label>
+
+            <label
+              ><input
+                name="prefer"
+                value="cutBait"
+                type="checkbox"
+                class="input-checkbox"
+              />Cut bait</label>
+
+              <label
+              ><input
+                name="prefer"
+                value="plastics"
+                type="checkbox"
+                class="input-checkbox"
+              />Plastics</label>
+
+              <label
+              ><input
+                name="prefer"
+                value="spinners"
+                type="checkbox"
+                class="input-checkbox"
+              />Spinners</label>
+
+              <label
+              ><input
+                name="prefer"
+                value="stinkBait"
+                type="checkbox"
+                class="input-checkbox"
+              />Stink bait</label>
+
+              <label
+              ><input
+                name="prefer"
+                value="net"
+                type="checkbox"
+                class="input-checkbox"
+              />Throw out a net and hope for the best</label>
+       
+          </div>
+      
+          <div class="form-group">
+            <p>What is your best fishing story?</p>
+            <textarea
+              id="comments"
+              class="input-textarea"
+              name="comment"
+              placeholder="Enter your comment here..."
+            ></textarea>
+          </div>
+      
+          <div class="form-group">
+            <button type="submit" id="submit" class="submit-button">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+      
+      <script src="survey.js"></script>
+</body>
+</html>
