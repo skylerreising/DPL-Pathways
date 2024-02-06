@@ -1,0 +1,34 @@
+*{
+    box-sizing: border-box;
+    background: lightgray;
+    color: blue;
+}
+
+.myflexboxRow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 50px;
+}
+
+.myflexboxColumn{
+    flex: 1;
+}
+
+header {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+tr {
+    color: red;
+    font-weight: 700;
+    font-size: 50px;
+}
+
+@media screen and (max-width: 600px){
+    .myflexboxRow{
+        flex-direction: column;
+    }
+}
