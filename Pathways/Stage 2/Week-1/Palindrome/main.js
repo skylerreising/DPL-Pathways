@@ -1,13 +1,14 @@
-function validateANDadd(){
-    //find new word and if its empty, alert
-    let theNewWord = document.forms["myForm"]["newWord"].value;
+document.querySelector("#addToList").addEventListener("click", validateANDadd)
+document.querySelector("#clearList1").addEventListener("click", clearList1)
+document.querySelector("#clearList2").addEventListener("click", clearList2)
 
-    theNewWord === "" ? alert("You must enter a word!") : getNewNumber(theNewWord);
+function validateANDadd(){
+    let theNewWord = document.forms["myForm"]["newWord"].value;
+    let theNewNum = document.forms["myForm"]["newNumber"].value;
+    theNewWord === "" ? alert("You must enter a word!") : checkNumber(theNewWord, theNewNum);
 }
 
-function getNewNumber(theNewWord){
-    let theNewNum = document.forms["myForm"]["newNumber"].value;
-
+function checkNumber(theNewWord, theNewNum){
     (theNewNum === "1" || theNewNum === "2") ? addWordToList(theNewWord, theNewNum) : alert("You must enter a 1 or 2!");
 }
 
@@ -35,13 +36,9 @@ function palindrome2(word){
 }
 
 function clearList1(){
-    //get the list
-    //set the inner html to nothing
     document.querySelector("#myList1").innerHTML = "";
 }
 
 function clearList2(){
-    //get the list
-    //set the inner html to nothing
     document.querySelector("#myList2").innerHTML = "";
 }
