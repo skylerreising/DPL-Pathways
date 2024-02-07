@@ -1,4 +1,4 @@
-*{
+body {
     box-sizing: border-box;
     background: lightgray;
     color: blue;
@@ -17,14 +17,23 @@
 
 header {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column wrap;
     justify-content: center;
+    align-items: center;
 }
 
-tr {
-    color: red;
+td {
     font-weight: 700;
-    font-size: 50px;
+    font-size: 45px;
+}
+
+tr, td {
+    border: 2px solid black;
+}
+
+h2, p {
+    display: flex;
+    justify-content: space-evenly;
 }
 
 @media screen and (max-width: 600px){
