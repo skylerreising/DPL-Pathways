@@ -36,6 +36,13 @@ h2, p {
     justify-content: space-evenly;
 }
 
+.completed {
+    text-decoration-line: line-through;
+    text-decoration-style: solid;
+    text-decoration-thickness: 2px;
+}
+
+
 @media screen and (max-width: 600px){
     .myflexboxRow{
         flex-direction: column;

@@ -1,10 +1,11 @@
 document.querySelector("#addToList").addEventListener("click", postTodo);
 document.querySelector("#clearList").addEventListener("click", clearList);
+document.querySelector("#myList").addEventListener("click", deleteOrComplete)
+
+//variable to hold my list
+const myList = document.querySelector("#myList");
 
 function postTodo(){
-    //variable to hold my list
-    let myList = document.querySelector("#myList");
-
     //checkmark
     const checkmark = "<i class='fa-regular fa-square-check'></i>"
 
@@ -23,7 +24,10 @@ function postTodo(){
     let allRows = Array.from(myList.rows);
     let lastRow = allRows[allRows.length-1];
 
-    lastRow.appendChild(document.createElement("td")).innerHTML = todo;
+    //wrap todo item in span with a class for its text
+    let todoText = `<span class="todo-text">${todo}</span>`
+
+    lastRow.appendChild(document.createElement("td")).innerHTML = todoText;
 
     //trashcan
     lastRow.appendChild(document.createElement("td")).innerHTML = trashcan;
@@ -31,4 +35,16 @@ function postTodo(){
 
 function clearList(){
     document.querySelector("#myList").innerHTML = "";
+}
+
+function deleteOrComplete(){
+    myList.addEventListener("click", function (e){
+        if(e.target.classList.contains("fa-trash-can")){
+            let todoRow = e.target.closest('tr')
+            todoRow.remove();
+        }else if(e.target.classList.contains("fa-square-check")){
+            let todoData = e.target.closest('tr').querySelector(".todo-text");
+            todoData.classList.toggle("completed");
+        }
+    })
 }
