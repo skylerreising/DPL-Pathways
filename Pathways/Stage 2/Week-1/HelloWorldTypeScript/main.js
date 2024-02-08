@@ -1,6 +1,9 @@
+"use strict";
 function myFunction() {
-    var newName = " ";
+    let newName = " ";
+    let age = 0;
     newName = document.getElementById("fname").value;
-    console.log(newName);
-    document.getElementById("greeting").innerHTML = "More and more splendid greetings " + newName + " !!";
+    age = Number(document.getElementById("age").value);
+    console.log(newName, age);
+    document.getElementById("greeting").innerHTML = "More and more splendid greetings " + newName + " age: " + age + " !!";
 }
