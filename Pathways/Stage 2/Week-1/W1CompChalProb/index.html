@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="https://kit.fontawesome.com/1c947f936c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <h1>Skyler's TODO List</h1>
+    </header>
+    <section class="myflexboxRow">
+        <div class="myflexboxColumn">
+            <h2>Form to obtain a word and place it in a list</h2>
+            <form name="myForm">
+                <p>
+                    <span>Add TODO item: </span> 
+                    <input type="text" name="todoEntry" id="todoEntry" value="">
+                </p>
+                <p>
+                    <input type="button" value="Add to list" id="addToList">
+                </p>
+            </form>
+        </div>
+        <div class="myflexboxColumn">
+            <h2>Palindrome Algo 1</h2>
+            <table id="myList">
+                <tbody>
+                    <tr>
+                        <td><i class='fa-regular fa-square-check'></i></td>
+                        <td>Test item</td>
+                        <td><i class="fa-solid fa-trash-can"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br /> <br />
+            <p>
+                <input type="button" value="Clear the list" id="clearList">
+            </p>
+        </div>
+    </section>
+    <script src="main.js"></script>
+</body>
+</html>
