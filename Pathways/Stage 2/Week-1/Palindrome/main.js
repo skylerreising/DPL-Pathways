@@ -4,6 +4,8 @@ document.querySelector("#clearList2").addEventListener("click", clearList2)
 document.querySelector("#clearList3").addEventListener("click", clearList3)
 document.querySelector("#wackyButton").addEventListener("click", randomColors)
 
+//randomColors()
+
 function randomColors(){
     //Change background and font colors to random values
     //need function to produce random number between 0-255
@@ -38,8 +40,6 @@ function checkNumber(theNewWord, theNewNum){
     (theNewNum === "1" || theNewNum === "2" || theNewNum === "3") ? addWordToList(theNewWord, theNewNum) : alert("You must enter a 1, 2, or 3!");
 }
 
-//can I add the word and palindrome bool as different columns in a table?
-//for fun, can I add a button to randomly change the background color and font color?
 function addWordToList(word,num){
     if(num === "1"){
         //variable to hold myList1
@@ -80,7 +80,7 @@ function addWordToList(word,num){
 }
 
 function palindrome1(word){
-    return word.split("").reverse().join("") === word ? "true":"false";
+    return word.split("").reverse().join("") === word;
 }
 
 function palindrome2(word){
@@ -95,7 +95,7 @@ function palindrome2(word){
 }
 
 function palindrome3(word){
-    return word.split("").reverse().join("").toLowerCase() === word.toLowerCase() ? "true":"false";
+    return word.split("").reverse().join("").toLowerCase() === word.toLowerCase();
 }
 
 function clearList1(){
