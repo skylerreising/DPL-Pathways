@@ -40,15 +40,66 @@ function validateAndadd() {
         //calculate and display the mean
         let sum = 0;
         let count = numTable.rows.length;
+        let data = [];
         for (let i = 0; i < count; i++) {
             let grabStringWithNum = (numTable.rows[i]).innerHTML;
             grabStringWithNum = grabStringWithNum.replace("<td>", "");
             grabStringWithNum = grabStringWithNum.replace("</td>", "");
             let numb = Number(grabStringWithNum);
+            data.push(numb); //for the median and mode
             sum += numb;
         }
         let mean = sum / count;
         let displayMean = document.getElementById("theMean");
         displayMean.innerHTML = mean.toFixed(5);
+        //calculate and display the median
+        //sort the data smallest to largest
+        data.sort((a, b) => a - b);
+        //if total is odd, median is the middle data point
+        let median = 0;
+        if (count % 2 === 1) {
+            median = data[Math.floor(data.length / 2)];
+            // console.log(median);
+        }
+        else { //if total is even, median is the average of the two middle data points
+            median = ((data[(data.length / 2) - 1]) + (data[(data.length / 2)])) / 2;
+            // console.log(median);
+        }
+        let displayMedian = document.getElementById("theMedian");
+        displayMedian.innerHTML = median.toFixed(5);
+        //calculate and dipslay the mode
+        //loop through data to find the mode
+        //declare mode count and mode
+        let mode = data[0];
+        let maxCount = 0; //count of each number
+        let modeCount = 0; //highest count so far
+        let numBeingChecked = undefined; //current number being checked
+        for (let i = 0; i < data.length; i++) {
+            if (data[i] === mode) {
+                modeCount++;
+                maxCount++;
+            }
+            else if (numBeingChecked === undefined) {
+                numBeingChecked = data[i];
+                maxCount = 1;
+            }
+            else if (data[i] === numBeingChecked) {
+                maxCount++;
+                if (maxCount > modeCount) {
+                    mode = data[i];
+                    modeCount = maxCount;
+                }
+            }
+            else {
+                numBeingChecked = data[i];
+                maxCount = 1;
+            }
+        }
+        console.log(mode, numBeingChecked);
+        // if(maxCount === modeCount){
+        //     //Display both mode and numBeingChecked
+        // }else{
+        //     //Display mode
+        // }
     }
 }
