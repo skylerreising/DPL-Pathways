@@ -83,13 +83,13 @@ function validateAndadd(): boolean {
         //calculate and dipslay the mode
         //loop through data to find the mode
         //declare mode count and mode
-        let mode: number = data[0];
+        let mode: number[] = [data[0]];
         let maxCount: number = 0;//count of each number
         let modeCount: number = 0//highest count so far
         let numBeingChecked: number = undefined;//current number being checked
 
         for(let i: number=0; i<data.length; i++){
-            if(data[i] === mode){
+            if(data[i] === mode[0]){
                 modeCount++
                 maxCount++
             }else if(numBeingChecked === undefined){
@@ -98,7 +98,10 @@ function validateAndadd(): boolean {
             }else if(data[i] === numBeingChecked){
                 maxCount++
                 if(maxCount > modeCount){
-                    mode = data[i];
+                    mode = [data[i]];
+                    modeCount = maxCount;
+                }else if(maxCount === modeCount){
+                    mode.push(data[i]);
                     modeCount = maxCount;
                 }
             }else{
@@ -107,12 +110,10 @@ function validateAndadd(): boolean {
             }
         }
 
-        console.log(mode,numBeingChecked)
-
-        // if(maxCount === modeCount){
-        //     //Display both mode and numBeingChecked //TODO NEED TO FIGURE OUT HOW TO HOLD TWO MODES SINCE numBeingChecked will be the last number being checked
-        // }else{
-        //     //Display mode
-        // }
+        //console.log(mode,numBeingChecked)
+        //display the mode
+        let displayMode: HTMLElement = document.getElementById("theMode");
+        displayMode.innerHTML = "";
+        mode.forEach(x => displayMode.innerHTML += x.toString()+" ");
     }
 }
