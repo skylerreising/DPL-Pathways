@@ -33,13 +33,21 @@ tr, td {
 
 h2, p {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+}
+
+table {
+    display: flex;
+    flex-flow:column wrap;
+    flex: 1,1,auto;
+    align-items: center;
 }
 
 .completed {
     text-decoration-line: line-through;
     text-decoration-style: solid;
     text-decoration-thickness: 2px;
+    text-decoration-color:  red;
 }
 
 
