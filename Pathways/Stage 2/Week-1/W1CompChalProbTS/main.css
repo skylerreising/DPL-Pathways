@@ -33,7 +33,14 @@ tr, td {
 
 h2, p {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+}
+
+table {
+    display: flex;
+    flex-flow:column wrap;
+    flex: 1,1,auto;
+    align-items: center;
 }
 
 .completed {
