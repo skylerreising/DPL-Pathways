@@ -1,0 +1,7 @@
+{
+    "liveServer.settings.CustomBrowser": "firefox",
+    "open-in-browser.default": "/Applications/Firefox Developer Edition.app",
+    "debug.javascript.defaultRuntimeExecutable": {
+        "pwa-node": "node"
+    }
+}
