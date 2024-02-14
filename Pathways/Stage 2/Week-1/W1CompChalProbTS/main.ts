@@ -1,8 +1,14 @@
-document.querySelector("#addToList").addEventListener("click", postTodo);
-document.querySelector("#clearList").addEventListener("click", clearList);
+let addTodo = document.querySelector("#addToList");
+
+if(!addTodo){
+    alert("No todo found")
+}else{
+    addTodo.addEventListener("click", postTodo);
+}
+document.querySelector("#clearList")!.addEventListener("click", clearList);
 
 //variable to hold my list
-const myList: HTMLTableElement = document.querySelector("#myList");
+const myList: HTMLTableElement = document.querySelector("#myList")!;
 
 function postTodo(){
     //checkmark
@@ -21,7 +27,7 @@ function postTodo(){
     checkMarkCell.innerHTML = checkmark;
 
     //add event listener to checkmark
-    checkMarkCell.querySelector(".checkMark").addEventListener("click", completeOrUncomplete);
+    checkMarkCell.querySelector(".checkMark")!.addEventListener("click", completeOrUncomplete);
 
     //todo item
     //find the last tr and add another td with the todo item
@@ -38,11 +44,11 @@ function postTodo(){
     trashCanCell.innerHTML = trashcan;
 
     //add event listener to trashcan
-    trashCanCell.querySelector(".trashCan").addEventListener("click", deleteTodo);
+    trashCanCell.querySelector(".trashCan")!.addEventListener("click", deleteTodo);
 }
 
 function clearList(){
-    document.querySelector("#myList").innerHTML = "";
+    document.querySelector("#myList")!.innerHTML = "";
 }
 
 //delete by itself

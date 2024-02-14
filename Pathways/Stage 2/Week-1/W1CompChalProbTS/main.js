@@ -1,4 +1,10 @@
-document.querySelector("#addToList").addEventListener("click", postTodo);
+let addTodo = document.querySelector("#addToList");
+if (!addTodo) {
+    alert("No todo found");
+}
+else {
+    addTodo.addEventListener("click", postTodo);
+}
 document.querySelector("#clearList").addEventListener("click", clearList);
 //variable to hold my list
 const myList = document.querySelector("#myList");
