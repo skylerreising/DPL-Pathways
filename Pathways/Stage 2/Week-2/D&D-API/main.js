@@ -19,7 +19,6 @@ async function loadMonsters(){
         let currentMonsterData = await fetch(monURL);
         let currentMonster = await currentMonsterData.json();
 
-        // console.log(monURL)
         if("image" in currentMonster){
         //build anchor tag that contains div and strong
         let anchor = document.createElement("a");
@@ -63,7 +62,6 @@ async function getMonster(event){
     //get the div's background image to the the monster's image url
     //build the image url string
     let monsterImageURL = `${monsterString}${jsonMonster.image}`;
-    console.log(monsterImageURL)
     clickedMonsterDiv.style.backgroundImage = `url('${monsterImageURL}')`;
 
     //Enter the monster's name
@@ -83,7 +81,6 @@ async function getMonster(event){
 
     //loop through special abilities and add them as paragraphs
     for(let i=0; i<abilities.length; i++){
-        console.log(abilities[i].name, abilities[i].desc)
         
         let allThoseDivs = document.querySelectorAll(".nameDiv");
         let lastNameDiv = allThoseDivs[allThoseDivs.length - 1];
