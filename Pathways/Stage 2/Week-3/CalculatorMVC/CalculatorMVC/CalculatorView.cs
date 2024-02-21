@@ -13,12 +13,35 @@ namespace CalculatorMVC
 
         }
 
+        //View method to ask if user wants to calculate or quit
+        public bool CalcOrQuit()
+        {
+            //Ask user if they want to calc or quit and save answer in string variable
+            Console.WriteLine("Enter \"C\" to make a calculation or \"Q\" to quit.");
+            string calcOrQuit = Console.ReadLine();
+            if (calcOrQuit.ToLower() == "c" )
+            {
+                return true;
+            }
+            else if(calcOrQuit.ToLower() == "q")
+            {
+                Console.WriteLine("Good bye.");
+                return false;
+            }
+            else
+            {
+                Console.WriteLine("Invalid entry. Please enter \"C\" to make a calculation or \"Q\" to quit.");
+                return CalcOrQuit();
+            }
+        }
         public double GetNum1()
         {
-            Console.WriteLine("Please enter the 1st number.");
-            double num1 = double.Parse(Console.ReadLine());
+            double num1;
 
-            if(num1 is double)
+            Console.WriteLine("Please enter the 1st number.");
+            
+
+            if(double.TryParse(Console.ReadLine(), out num1))
             {
                 return num1;
             }
@@ -47,10 +70,11 @@ namespace CalculatorMVC
 
         public double GetNum2()
         {
+            double num2;
             Console.WriteLine("Please enter the 2nd number.");
-            double num2 = double.Parse(Console.ReadLine());
+            
 
-            if (num2 is double)
+            if (double.TryParse(Console.ReadLine(), out num2))
             {
                 return num2;
             }
@@ -61,27 +85,9 @@ namespace CalculatorMVC
             }
         }
 
-        public void ShowResult(double num1, double num2, string operatorSign)
+        public void ShowResult(double num1, string op, double num2, double answer)
         {
-            double answer;
-
-            if(operatorSign == "+")
-            {
-                answer = num1 + num2;
-            }
-            else if (operatorSign == "-")
-            {
-                answer = num1 - num2;
-            }
-            else if (operatorSign == "*")
-            {
-                answer = num1 * num2;
-            }
-            else
-            {
-                answer = num1 / num2;
-            }
-            Console.WriteLine($"The answer to {num1} {operatorSign} {num2} is {answer}");
+            Console.WriteLine($"The answer to {num1} {op} {num2} is {answer}");
         }
     }
 }
