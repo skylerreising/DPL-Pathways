@@ -29,15 +29,15 @@ namespace Meals
         }
 
         //interface
-        public int PayForMeal(int items)
+        public double PayForMeal(double items)
         {
             if (items > 10)
             {
-                return items * 10;
+                return items * 1.0;
             }
             else
             {
-                return items * 12;
+                return items * 1.2;
             }
         }
 

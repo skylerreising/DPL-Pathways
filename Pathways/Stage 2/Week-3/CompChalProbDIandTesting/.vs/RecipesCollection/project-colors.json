@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "e216a598-2e6b-4ff5-a272-855f922369d3": {
+      "ProjectGuid": "e216a598-2e6b-4ff5-a272-855f922369d3",
+      "DisplayName": "MealCollection",
+      "ColorIndex": 0
+    },
+    "539d5921-6f2b-4502-998f-dbb2d1d4a7e8": {
+      "ProjectGuid": "539d5921-6f2b-4502-998f-dbb2d1d4a7e8",
+      "DisplayName": "PriceTest",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}

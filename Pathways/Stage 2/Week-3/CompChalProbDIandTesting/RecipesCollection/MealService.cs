@@ -15,7 +15,7 @@ namespace Meals
             _mealPrice = mealPrice;
         }
 
-        public int PayForMeal(int items)
+        public double PayForMeal(double items)
         {
             return _mealPrice.PayForMeal(items);
         }

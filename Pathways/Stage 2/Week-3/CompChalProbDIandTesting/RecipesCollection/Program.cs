@@ -76,7 +76,7 @@ namespace Meals
             var menuChoice = "";
             do
             {
-                Console.WriteLine("Please choose an option\n1. Create a meal\n2. Read the list of meals\n3. Delete a meal\n");
+                Console.WriteLine("\nPlease choose an option\n1. Create a meal\n2. Read the list of meals\n3. Delete a meal\n");
                 Console.WriteLine("Please enter a number or \"Q\" to quit.");
                 do
                 {
@@ -103,19 +103,41 @@ namespace Meals
 
                     foreach(var meal in mealList)
                     {
-                        Console.WriteLine($"{meal} Price: ${howMuchAreMeals.PayForMeal(meal.Entree.Length)}");
+                        Console.WriteLine($"{meal}Price: ${howMuchAreMeals.PayForMeal(meal.Entree.Length):F2}");
                     }
                 }
                 else if(menuChoice == "3")
                 {
-                    for(int i=0; i<mealList.Count; i++)
+                    if (mealList.Count > 0)
                     {
-                        Console.WriteLine($"{i+1}. {mealList[i]}");
+                        int userChoice;
+                        bool selection = false;
+                        do
+                        {
+                            for (int i = 0; i < mealList.Count; i++)
+                            {
+                                Console.WriteLine($"{i + 1}. {mealList[i]}");
+                            }
+
+                            do
+                            {
+                                Console.WriteLine("\nPlease select the number of the meal you would like to delete.\n");
+                            } while (!int.TryParse(Console.ReadLine(), out userChoice));
+
+                            if (userChoice >= 1 && userChoice <= mealList.Count)
+                            {
+                                mealList.RemoveAt(userChoice - 1);
+                                selection = true;
+                                Console.WriteLine($"Meal {userChoice} has been deleted");
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Meal {userChoice} does not exist. Please try again.");
+                            }
+                        } while (!selection);
                     }
-                    Console.WriteLine("\nPlease select the number of the meal you would like to delete.\n");
-                    int userChoice = Convert.ToInt32(Console.ReadLine());
-                    mealList.RemoveAt(userChoice - 1);
-                    Console.WriteLine($"Meal {userChoice} has been deleted");
+                    else
+                        Console.WriteLine("No meals to delete");
                 }
             } while (menuChoice.ToLower() != "q");
         }
@@ -140,16 +162,22 @@ namespace Meals
             }
             else
             {
-                Console.WriteLine("Please choose either breakfast or lunch. Double check spelling.");
+                Console.WriteLine("Please choose either breakfast, lunch, or dinner and double check your spelling.");
                 CreateMeal(mealList);
             }
         }
 
         static void Breakfast(List<Meal> mealList)
         {
-            Console.WriteLine("Will you be having coffee with breakfast? Y or N?");
-            var coffeeChoice = Console.ReadLine();
+            var coffeeChoice = "";
             bool userCoffeeChoice = false;
+
+            do
+            {
+                Console.WriteLine("Will you be having coffee with breakfast? Y or N?");
+                coffeeChoice = Console.ReadLine();
+            } while (coffeeChoice.ToLower() != "y" && coffeeChoice.ToLower() != "n" && coffeeChoice.ToLower() != "yes" && coffeeChoice.ToLower() != "no");
+            
 
             if(coffeeChoice.ToLower() == "y" || coffeeChoice.ToLower() == "yes")
             {
@@ -168,8 +196,12 @@ namespace Meals
         static void Lunch(List<Meal> mealList)
         {
             Lunch lunch = new Lunch();
-            Console.WriteLine("Will you be having soup or salad? Y or N?");
-            string soSChoice = Console.ReadLine();
+            string soSChoice;
+            do
+            {
+                Console.WriteLine("Will you be having soup or salad? Y or N?");
+                soSChoice = Console.ReadLine();
+            } while (soSChoice.ToLower() != "y" && soSChoice.ToLower() != "n" && soSChoice.ToLower() != "yes" && soSChoice.ToLower() != "no");
 
             if (soSChoice.ToLower() == "y" || soSChoice.ToLower() == "yes" || soSChoice.ToLower() == "salad" || soSChoice.ToLower() == "soup")
             {

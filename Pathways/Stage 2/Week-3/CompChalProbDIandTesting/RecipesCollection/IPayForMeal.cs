@@ -8,6 +8,6 @@ namespace Meals
 {
     public interface IPayForMeal
     {
-        int PayForMeal(int items);
+        double PayForMeal(double items);
     }
 }

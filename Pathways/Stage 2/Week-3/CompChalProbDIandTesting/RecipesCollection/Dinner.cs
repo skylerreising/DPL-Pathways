@@ -29,8 +29,13 @@ namespace Meals
 
         public void AppetizerMethod()
         {
-            Console.WriteLine("Would you like an appetizer? Y or N");
-            string answer = Console.ReadLine();
+            string answer;
+            do
+            {
+                Console.WriteLine("Would you like an appetizer? Y or N");
+                answer = Console.ReadLine();
+            } while(answer.ToLower() == "y" && answer.ToLower() == "yes" && answer.ToLower() == "n" && answer.ToLower() == "no");
+
 
             if(answer.ToLower() == "y" || answer.ToLower() == "yes")
             {
