@@ -18,7 +18,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     importProvidersFrom(HttpClientModule),
     importProvidersFrom(HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService)),
-    provideHttpClient(withInterceptorsFromDi(),withFetch()),
-    //provideHttpClient(withFetch())
+    provideHttpClient(withInterceptorsFromDi(),withFetch())
   ],
 };

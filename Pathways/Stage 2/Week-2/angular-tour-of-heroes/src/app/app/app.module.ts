@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from '../in-memory-data.service';
+import { withFetch } from '@angular/common/http';
 
 @NgModule({
   declarations: [],
+  providers: [
+    provideHttpClient(withFetch()),
+  ],
   imports: [
     CommonModule,
     HttpClientModule,
