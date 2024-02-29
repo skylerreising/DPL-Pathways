@@ -23,30 +23,68 @@ app.post('/api/courses', (req,res) => {
         id: newId,
         name: req.body.name
     };
-    
-    const schema = Joi.object({
-        id: Joi.required(),
-        name: Joi.string().min(3).required()
-    })
-    const { error, value } = schema.validate(newCourse)
-    // const result = schema.validate({});
-    // console.log(result)
-    console.log(error, value);
-    
+    let { error} = validateCourse(req.body);
+
     if(error){
         //400 Bad Request
-        res.status(400).send(result.error);
-        return;
+       return res.status(400).send(error.details[0].message);
     }
+
+    console.log(error, value);
     
     courses.push(newCourse);
     res.send(newCourse);
 })
 
+app.put('/api/courses/:id', (req,res) => {
+    let course = courses.find(c => c.id === parseInt(req.params.id))
+
+    if(!course){
+        return res.status(404).send('The course with the given id was not found.');
+    }else{
+        let { error} = validateCourse(req.body);
+        
+        if(error){
+            //400 Bad Request
+            return res.status(400).send(error.details[0].message);
+        }
+        
+        //update course
+        course.name = req.body.name;
+        
+        //return the updated course
+        res.send(course);
+    }
+});
+
+app.delete('/api/courses/:id', (req,res) => {
+    let course = courses.find(c => c.id === parseInt(req.params.id))
+
+    if(!course){
+        return res.status(404).send('The course with the given id was not found.');
+    }else{
+        
+        let index = courses.indexOf(course);
+        courses.splice(index, 1);
+
+        //return the updated course
+        res.send(course);
+    }
+})
+
+function validateCourse(course){
+    const schema = Joi.object({
+        // id: Joi.required(),
+        name: Joi.string().min(3).required()
+    });
+
+    return { error, value } = schema.validate(course)
+}
+
 app.get('/api/courses/:id', (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id))
     if(!course){
-        res.status(404).send('The course with the given id was not found.');
+        return res.status(404).send('The course with the given id was not found.');
     }else{
         res.send(course);
     }
