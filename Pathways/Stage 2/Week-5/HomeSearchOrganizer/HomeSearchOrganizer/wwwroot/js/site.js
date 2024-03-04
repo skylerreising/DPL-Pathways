@@ -10,11 +10,16 @@ function getItems() {
 
 function addItem() {
     const addNameTextbox = document.getElementById('add-name');
+    const addBedrooms = document.getElementById('add-bedrooms');
+    const addBathrooms = document.getElementById('add-bathrooms');
+    
 
     const item = {
         isComplete: false,
-        name: addNameTextbox.value.trim()
-    };
+        address: addNameTextbox.value.trim(),
+        bedrooms: addBedrooms.value.trim(),
+        bathrooms: addBathrooms.value.trim()
+    }
 
     fetch(uri, {
         method: 'POST',
@@ -28,6 +33,8 @@ function addItem() {
         .then(() => {
             getItems();
             addNameTextbox.value = '';
+            addBedrooms.value = 0;
+            addBathrooms.value = 0;
         })
         .catch(error => console.error('Unable to add item.', error));
 }
@@ -43,9 +50,11 @@ function deleteItem(id) {
 function displayEditForm(id) {
     const item = homes.find(item => item.id === id);
 
-    document.getElementById('edit-name').value = item.name;
+    document.getElementById('edit-name').value = item.address;
     document.getElementById('edit-id').value = item.id;
     document.getElementById('edit-isComplete').checked = item.isComplete;
+    document.getElementById('edit-bedrooms').value = item.bedrooms;
+    document.getElementById('edit-bathrooms').value = item.bathrooms;
     document.getElementById('editForm').style.display = 'block';
 }
 
@@ -54,7 +63,9 @@ function updateItem() {
     const item = {
         id: parseInt(itemId, 10),
         isComplete: document.getElementById('edit-isComplete').checked,
-        name: document.getElementById('edit-name').value.trim()
+        address: document.getElementById('edit-name').value.trim(),
+        bedrooms: document.getElementById('edit-bedrooms').value,
+        bathrooms: document.getElementById('edit-bathrooms').value
     };
 
     fetch(`${uri}/${itemId}`, {
@@ -78,7 +89,7 @@ function closeInput() {
 }
 
 function _displayCount(itemCount) {
-    const name = (itemCount === 1) ? 'to-do' : 'to-dos';
+    const name = (itemCount === 1) ? 'Potential Home' : 'Potential Homes';
 
     document.getElementById('counter').innerText = `${itemCount} ${name}`;
 }
@@ -111,14 +122,22 @@ function _displayItems(data) {
         td1.appendChild(isCompleteCheckbox);
 
         let td2 = tr.insertCell(1);
-        let textNode = document.createTextNode(item.name);
+        let textNode = document.createTextNode(item.address);
         td2.appendChild(textNode);
 
         let td3 = tr.insertCell(2);
-        td3.appendChild(editButton);
+        let bedrooms = document.createTextNode(item.bedrooms);
+        td3.appendChild(bedrooms);
 
         let td4 = tr.insertCell(3);
-        td4.appendChild(deleteButton);
+        let bathrooms = document.createTextNode(item.bathrooms);
+        td4.appendChild(bathrooms);
+
+        let td11 = tr.insertCell(4);
+        td11.appendChild(editButton);
+
+        let td12 = tr.insertCell(5);
+        td12.appendChild(deleteButton);
     });
 
     homes = data;

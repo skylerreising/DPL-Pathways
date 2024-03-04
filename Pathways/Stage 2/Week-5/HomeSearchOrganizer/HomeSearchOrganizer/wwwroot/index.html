@@ -2,14 +2,16 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>To-do CRUD</title>
+    <title>Home Search Organizer</title>
     <link rel="stylesheet" href="css/site.css" />
 </head>
 <body>
-    <h1>To-do CRUD</h1>
-    <h3>Add</h3>
+    <h1>Home Search Organizer</h1>
+    <h3>Add Potential Home</h3>
     <form action="javascript:void(0);" method="POST" onsubmit="addItem()">
-        <input type="text" id="add-name" placeholder="New to-do">
+        <input type="text" id="add-name" placeholder="New Home">
+        <input type="text" id="add-bedrooms" placeholder="# of Bedrooms">
+        <input type="text" id="add-bathrooms" placeholder="# of Bathrooms">
         <input type="submit" value="Add">
     </form>
 
@@ -19,6 +21,8 @@
             <input type="hidden" id="edit-id">
             <input type="checkbox" id="edit-isComplete">
             <input type="text" id="edit-name">
+            <input type="text" id="edit-bedrooms">
+            <input type="text" id="edit-bathrooms">
             <input type="submit" value="Save">
             <a onclick="closeInput()" aria-label="Close">&#10006;</a>
         </form>
@@ -28,10 +32,12 @@
 
     <table>
         <tr>
-            <th>Is Complete?</th>
-            <th>Name</th>
-            <th></th>
-            <th></th>
+            <th>Viewed?</th>
+            <th>Address</th>
+            <th>Bedrooms</th>
+            <th>Bathrooms</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
         <tbody id="homes"></tbody>
     </table>

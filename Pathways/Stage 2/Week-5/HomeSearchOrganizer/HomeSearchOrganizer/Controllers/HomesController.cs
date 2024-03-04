@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HomeSearchOrganizer.Models;
 
@@ -22,16 +17,16 @@ namespace HomeSearchOrganizer.Controllers
 
         // GET: api/Homes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<HomeDTO>>> GetHomes()
+        public async Task<ActionResult<IEnumerable<HomeDto>>> GetHomes()
         {
             return await _context.Home
-                  .Select(x => HomeToDTO(x))
+                  .Select(x => HomeToDto(x))
                   .ToListAsync();
         }
 
         // GET: api/Homes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<HomeDTO>> GetHome(long id)
+        public async Task<ActionResult<HomeDto>> GetHome(long id)
         {
             var home = await _context.Home.FindAsync(id);
 
@@ -40,15 +35,15 @@ namespace HomeSearchOrganizer.Controllers
                 return NotFound();
             }
 
-            return HomeToDTO(home);
+            return HomeToDto(home);
         }
 
         // PUT: api/Homes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHome(long id, HomeDTO homeDTO)
+        public async Task<IActionResult> PutHome(long id, HomeDto homeDto)
         {
-            if (id != homeDTO.Id)
+            if (id != homeDto.Id)
             {
                 return BadRequest();
             }
@@ -59,8 +54,10 @@ namespace HomeSearchOrganizer.Controllers
                 return NotFound();
             }
 
-            home.Name = homeDTO.Name;
-            home.IsComplete = homeDTO.IsComplete;
+            home.Address = homeDto.Address;
+            home.IsComplete = homeDto.IsComplete;
+            home.Bedrooms = homeDto.Bedrooms;
+            home.Bathrooms = homeDto.Bathrooms;
 
             try
             {
@@ -77,12 +74,14 @@ namespace HomeSearchOrganizer.Controllers
         // POST: api/Homes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<HomeDTO>> PostHome(HomeDTO homeDTO)
+        public async Task<ActionResult<HomeDto>> PostHome(HomeDto homeDto)
         {
             var home = new Home
             {
-                IsComplete = homeDTO.IsComplete,
-                Name = homeDTO.Name
+                IsComplete = homeDto.IsComplete,
+                Address = homeDto.Address,
+                Bedrooms = homeDto.Bedrooms,
+                Bathrooms = homeDto.Bathrooms
             };
 
             _context.Home.Add(home);
@@ -91,7 +90,7 @@ namespace HomeSearchOrganizer.Controllers
             return CreatedAtAction(
                 nameof(GetHome),
                 new { id = home.Id },
-                HomeToDTO(home));
+                HomeToDto(home));
         }
 
         // DELETE: api/Homes/5
@@ -115,12 +114,14 @@ namespace HomeSearchOrganizer.Controllers
         {
             return (_context.Home?.Any(e => e.Id == id)).GetValueOrDefault();
         }
-        private static HomeDTO HomeToDTO(Home home) =>
-            new HomeDTO
+        private static HomeDto HomeToDto(Home home) =>
+            new HomeDto
             {
                 Id = home.Id,
-                Name = home.Name,
-                IsComplete = home.IsComplete
+                Address = home.Address,
+                IsComplete = home.IsComplete,
+                Bedrooms = home.Bedrooms,
+                Bathrooms = home.Bathrooms
             };
     }
 }
