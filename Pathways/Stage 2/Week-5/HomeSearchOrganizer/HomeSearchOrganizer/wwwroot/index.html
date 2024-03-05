@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Home Search Organizer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/site.css" />
 </head>
-<body>
+<body class="roboto-regular">
     <h1>Home Search Organizer</h1>
     <h3>Add Potential Home</h3>
-    <form action="javascript:void(0);" method="POST" onsubmit="addItem()">
+    <form id="addForm" action="javascript:void(0);" method="POST" onsubmit="addItem()">
         <input type="text" id="add-name" placeholder="New Address">
         <span id="add-name-error" class="error-message"></span>
         <input type="text" id="add-bedrooms" placeholder="# of Bedrooms">
@@ -26,9 +29,13 @@
             <input type="hidden" id="edit-id">
             <input type="checkbox" id="edit-isComplete">
             <input type="text" id="edit-name">
+            <span id="edit-name-error" class="error-message"></span>
             <input type="text" id="edit-bedrooms">
+            <span id="edit-bedrooms-error" class="error-message"></span>
             <input type="text" id="edit-bathrooms">
+            <span id="edit-bathrooms-error" class="error-message"></span>
             <input type="text" id="edit-squareFootage">
+            <span id="edit-squareFootage-error" class="error-message"></span>
             <input type="submit" value="Save">
             <a onclick="closeInput()" aria-label="Close">&#10006;</a>
         </form>

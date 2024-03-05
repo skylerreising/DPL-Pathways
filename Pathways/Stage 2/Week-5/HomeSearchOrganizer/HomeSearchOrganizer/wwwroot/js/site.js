@@ -61,9 +61,9 @@ function addItem() {
         .then(() => {
             getItems();
             addNameTextbox.value = '';
-            addBedrooms.value = 0;
-            addBathrooms.value = 0;
-            addSquareFootage.value = 0;
+            addBedrooms.value = '';
+            addBathrooms.value = '';
+            addSquareFootage.value = '';
         })
         .catch(error => console.error('Unable to add item.', error));
 }
@@ -108,6 +108,9 @@ function displayEditForm(id) {
 
 function updateItem() {
     const itemId = document.getElementById('edit-id').value;
+
+    resetErrorMessages();
+    
     const item = {
         id: parseInt(itemId, 10),
         isComplete: document.getElementById('edit-isComplete').checked,
@@ -116,6 +119,31 @@ function updateItem() {
         bathrooms: document.getElementById('edit-bathrooms').value,
         squareFootage: document.getElementById('edit-squareFootage').value
     };
+
+    let isValid = true;
+    if(item.address === "" || item.address === null){
+        displayErrorMessage('edit-name-error', 'Address field must have something');
+        isValid = false;
+    }
+
+    if (isNaN(item.bedrooms) || item.bedrooms === "") {
+        displayErrorMessage('edit-bedrooms-error', 'Bedrooms must be a number.');
+        isValid = false;
+    }
+
+    if (isNaN(item.bathrooms) || item.bathrooms === "") {
+        displayErrorMessage('edit-bathrooms-error', 'Bathrooms must be a number.');
+        isValid = false;
+    }
+
+    if (isNaN(item.squareFootage) || item.squareFootage === "") {
+        displayErrorMessage('edit-squareFootage-error', 'Square footage must be a number.');
+        isValid = false;
+    }
+
+    if(!isValid){
+        return;
+    }
 
     fetch(`${uri}/${itemId}`, {
         method: 'PUT',
@@ -192,6 +220,6 @@ function _displayItems(data) {
         let td12 = tr.insertCell(6);
         td12.appendChild(deleteButton);
     });
-
     homes = data;
 }
+module.exports = { addItem };
