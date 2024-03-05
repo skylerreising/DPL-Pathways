@@ -9,10 +9,14 @@
     <h1>Home Search Organizer</h1>
     <h3>Add Potential Home</h3>
     <form action="javascript:void(0);" method="POST" onsubmit="addItem()">
-        <input type="text" id="add-name" placeholder="New Home">
+        <input type="text" id="add-name" placeholder="New Address">
+        <span id="add-name-error" class="error-message"></span>
         <input type="text" id="add-bedrooms" placeholder="# of Bedrooms">
+        <span id="add-bedrooms-error" class="error-message"></span>
         <input type="text" id="add-bathrooms" placeholder="# of Bathrooms">
+        <span id="add-bathrooms-error" class="error-message"></span>
         <input type="text" id="add-squareFootage" placeholder="Square Feet">
+        <span id="add-squareFootage-error" class="error-message"></span>
         <input type="submit" value="Add">
     </form>
 

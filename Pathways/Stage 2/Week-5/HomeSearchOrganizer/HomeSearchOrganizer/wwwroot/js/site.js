@@ -13,6 +13,8 @@ function addItem() {
     const addBedrooms = document.getElementById('add-bedrooms');
     const addBathrooms = document.getElementById('add-bathrooms');
     const addSquareFootage = document.getElementById('add-squareFootage');
+    
+    resetErrorMessages();
 
     const item = {
         isComplete: false,
@@ -20,6 +22,31 @@ function addItem() {
         bedrooms: addBedrooms.value.trim(),
         bathrooms: addBathrooms.value.trim(),
         squareFootage: addSquareFootage.value.trim()
+    }
+    
+    let isValid = true;
+    if(item.address === "" || item.address === null){
+        displayErrorMessage('add-name-error', 'Address field must have something');
+        isValid = false;
+    }
+
+    if (isNaN(item.bedrooms) || item.bedrooms === "") {
+        displayErrorMessage('add-bedrooms-error', 'Bedrooms must be a number.');
+        isValid = false;
+    }
+
+    if (isNaN(item.bathrooms) || item.bathrooms === "") {
+        displayErrorMessage('add-bathrooms-error', 'Bathrooms must be a number.');
+        isValid = false;
+    }
+
+    if (isNaN(item.squareFootage) || item.squareFootage === "") {
+        displayErrorMessage('add-squareFootage-error', 'Square footage must be a number.');
+        isValid = false;
+    }
+    
+    if(!isValid){
+        return;
     }
 
     fetch(uri, {
@@ -39,6 +66,24 @@ function addItem() {
             addSquareFootage.value = 0;
         })
         .catch(error => console.error('Unable to add item.', error));
+}
+
+function displayErrorMessage(elementId, message){
+    const errorElement = document.getElementById(elementId);
+    if(errorElement){
+        errorElement.textContent = message;
+    }else {
+        console.error('Error element not found for id:', elementId)
+    }
+}
+
+function resetErrorMessages(){
+    ['add-name-error', 'add-bedrooms-error', 'add-bathrooms-error', 'add-squareFootage-error'].forEach((id) => {
+        const errorElement = document.getElementById(id);
+        if (errorElement) {
+            errorElement.textContent = '';
+        }
+    });
 }
 
 function deleteItem(id) {
