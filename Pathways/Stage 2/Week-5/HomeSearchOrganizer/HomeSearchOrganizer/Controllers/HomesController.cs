@@ -58,6 +58,7 @@ namespace HomeSearchOrganizer.Controllers
             home.IsComplete = homeDto.IsComplete;
             home.Bedrooms = homeDto.Bedrooms;
             home.Bathrooms = homeDto.Bathrooms;
+            home.SquareFootage = homeDto.SquareFootage;
 
             try
             {
@@ -81,7 +82,8 @@ namespace HomeSearchOrganizer.Controllers
                 IsComplete = homeDto.IsComplete,
                 Address = homeDto.Address,
                 Bedrooms = homeDto.Bedrooms,
-                Bathrooms = homeDto.Bathrooms
+                Bathrooms = homeDto.Bathrooms,
+                SquareFootage = homeDto.SquareFootage
             };
 
             _context.Home.Add(home);
@@ -121,7 +123,8 @@ namespace HomeSearchOrganizer.Controllers
                 Address = home.Address,
                 IsComplete = home.IsComplete,
                 Bedrooms = home.Bedrooms,
-                Bathrooms = home.Bathrooms
+                Bathrooms = home.Bathrooms,
+                SquareFootage = home.SquareFootage
             };
     }
 }

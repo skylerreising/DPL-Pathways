@@ -12,13 +12,14 @@ function addItem() {
     const addNameTextbox = document.getElementById('add-name');
     const addBedrooms = document.getElementById('add-bedrooms');
     const addBathrooms = document.getElementById('add-bathrooms');
-    
+    const addSquareFootage = document.getElementById('add-squareFootage');
 
     const item = {
         isComplete: false,
         address: addNameTextbox.value.trim(),
         bedrooms: addBedrooms.value.trim(),
-        bathrooms: addBathrooms.value.trim()
+        bathrooms: addBathrooms.value.trim(),
+        squareFootage: addSquareFootage.value.trim()
     }
 
     fetch(uri, {
@@ -35,6 +36,7 @@ function addItem() {
             addNameTextbox.value = '';
             addBedrooms.value = 0;
             addBathrooms.value = 0;
+            addSquareFootage.value = 0;
         })
         .catch(error => console.error('Unable to add item.', error));
 }
@@ -55,6 +57,7 @@ function displayEditForm(id) {
     document.getElementById('edit-isComplete').checked = item.isComplete;
     document.getElementById('edit-bedrooms').value = item.bedrooms;
     document.getElementById('edit-bathrooms').value = item.bathrooms;
+    document.getElementById('edit-squareFootage').value = item.squareFootage;
     document.getElementById('editForm').style.display = 'block';
 }
 
@@ -65,7 +68,8 @@ function updateItem() {
         isComplete: document.getElementById('edit-isComplete').checked,
         address: document.getElementById('edit-name').value.trim(),
         bedrooms: document.getElementById('edit-bedrooms').value,
-        bathrooms: document.getElementById('edit-bathrooms').value
+        bathrooms: document.getElementById('edit-bathrooms').value,
+        squareFootage: document.getElementById('edit-squareFootage').value
     };
 
     fetch(`${uri}/${itemId}`, {
@@ -133,10 +137,14 @@ function _displayItems(data) {
         let bathrooms = document.createTextNode(item.bathrooms);
         td4.appendChild(bathrooms);
 
-        let td11 = tr.insertCell(4);
+        let td5 = tr.insertCell(4);
+        let squareFootage = document.createTextNode(item.squareFootage +" sq ft");
+        td5.appendChild(squareFootage);
+
+        let td11 = tr.insertCell(5);
         td11.appendChild(editButton);
 
-        let td12 = tr.insertCell(5);
+        let td12 = tr.insertCell(6);
         td12.appendChild(deleteButton);
     });
 

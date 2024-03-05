@@ -7,6 +7,7 @@
         public bool IsComplete { get; set; }//viewed
         public double Bedrooms { get; set; }
         public double Bathrooms { get; set; }
+        public double SquareFootage { get; set; }
         public string? Secret { get; set; }
     }
  
@@ -17,5 +18,7 @@
         public bool IsComplete { get; set; }
         public double Bedrooms { get; set; }
         public double Bathrooms { get; set; }
+        public double SquareFootage { get; set; }
+
     }
 }
