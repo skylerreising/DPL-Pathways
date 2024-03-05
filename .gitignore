@@ -21,3 +21,6 @@ packages/
 # Others
 *.log
 .DS_Store
+.fake
+**/node_modules/
+**/.idea/
